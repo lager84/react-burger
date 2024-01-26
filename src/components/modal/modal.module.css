@@ -1,0 +1,20 @@
+.modalOrder {
+    display: flex;
+    flex-direction: column;
+    border-radius: 40px;
+    background: #1f1f24;
+    z-index: 1;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+    transition: all 0.3s;
+}
+
+.div_closeButton {
+    background-color: transparent;
+    border: none;
+    transition: all 0.3s;
+}

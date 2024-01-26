@@ -1,0 +1,62 @@
+.ingredient {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+}
+
+.ingredient_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 640px;
+    
+}
+
+.ingredient_title {
+    max-width: 520px;
+}
+
+.ingredient_itemValue {
+    line-height: 24px;
+    font-family: 'Iceland';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+}
+
+.ingredient_closeButton {
+    background-color: transparent;
+    border: none;
+    transition: all 0.3s;
+}
+
+.ingredient_closeButton:hover {
+    opacity: 0.6;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.ingredient_listItem {
+    display: flex;
+    gap: 20px;
+}
+
+.ingredient_item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    color: #8585AD;
+    list-style: none;
+    width: 120px;
+}
+
+.ingredient_itemText {
+    line-height: 24px;
+    font-family: 'Iceland';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+}

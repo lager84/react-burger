@@ -1,0 +1,52 @@
+.order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    position: relative;
+    padding-top: 60px;
+}
+
+.order_title {
+    max-width: 520px;
+    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+    font-size: 60px;
+}
+
+.order_closeButton {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    transition: all 0.3s;
+}
+
+.order_closeButton:hover {
+    opacity: 0.6;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.order_descriptionReady {
+    color: #9595be;
+    padding-bottom: 120px;
+}
+
+.num_order{
+    padding-top: 120px;
+    display: inline;
+   
+
+}
+
+.order_id{
+    display: flex;
+    justify-content:center;
+}
+
+.imgorder{
+    padding-top:60px;
+    padding-bottom: 60px;
+}

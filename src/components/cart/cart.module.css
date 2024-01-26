@@ -1,0 +1,26 @@
+.cart{
+    display: flex;
+    width: 250px;
+    position: relative;
+    flex-direction: column;
+    align-items: center;  
+}
+
+.cartprice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cartdescription {
+    max-width: 230px;
+    text-align: center;
+}
+
+.cartcount {
+line-height: 24px;
+font-family: 'Iceland';
+font-weight: 400;
+font-size: 28px;
+color: #F2F2F3;
+}
