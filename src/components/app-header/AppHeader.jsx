@@ -50,17 +50,5 @@ function AppHeader() {
   );
 }
 
-AppHeader.propTypes = {
-  props: PropTypes.shape({
-    children: PropTypes.element.isRequired,
-    text: PropTypes.string.isRequired,
-    icon: PropTypes.element.isRequired,
-    type: PropTypes.string.isRequired,
-    activ: PropTypes.string.isRequired
-  }
-  )
-
-
-}
 
 export default AppHeader
