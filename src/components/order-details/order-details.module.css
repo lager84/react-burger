@@ -34,19 +34,19 @@
     padding-bottom: 120px;
 }
 
-.num_order{
+.num_order {
     padding-top: 120px;
     display: inline;
-   
+
 
 }
 
-.order_id{
+.order_id {
     display: flex;
-    justify-content:center;
+    justify-content: center;
 }
 
-.imgorder{
-    padding-top:60px;
+.imgorder {
+    padding-top: 60px;
     padding-bottom: 60px;
 }

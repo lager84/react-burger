@@ -1,18 +1,19 @@
-.divheader{
-    
+.divheader {
+
     max-width: 1300px;
     margin: 0 auto;
-    padding: 0 16px;   
+    padding: 0 16px;
 }
 
-.main{
+.main {
     display: flex;
-    max-width: 1240px; 
+    max-width: 1240px;
     flex-direction: row;
     gap: 40px;
     justify-content: space-between;
     margin: 0 auto;
 }
-.section{
+
+.section {
     width: 600px;
 }

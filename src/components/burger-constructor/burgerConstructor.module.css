@@ -1,4 +1,4 @@
-.ulIng{
+.ulIng {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -7,58 +7,58 @@
     height: 68vh;
     overflow-y: scroll;
     width: 600px;
-    
+
 }
 
 .ulIng::-webkit-scrollbar {
-    width: 8px; 
-  }
+    width: 8px;
+}
 
 .ulIng::-webkit-scrollbar-track {
     background: #33333d;
-  }
+}
 
 .ulIng::-webkit-scrollbar-thumb {
     background-color: #9797c4;
-  }
+}
 
 
-.liIng{
+.liIng {
     display: flex;
     margin-right: 8px;
     gap: 8px;
-    justify-content:end;
+    justify-content: end;
     align-items: center;
 }
 
 
-.libun{
+.libun {
     display: flex;
     margin-right: 16px;
     gap: 8px;
-    justify-content:end;
+    justify-content: end;
     align-items: center;
 }
 
-.divTotal{
+.divTotal {
     display: flex;
     gap: 40px;
     justify-content: end;
     margin-top: 40px;
 }
+
 .divTotalChild {
     display: flex;
     align-items: center;
-    
+
 }
 
-.pTotal{
-font-size: 50px;
-line-height: 36px;
-padding-right: 8px;
+.pTotal {
+    font-size: 50px;
+    line-height: 36px;
+    padding-right: 8px;
 }
 
-.divButton{
+.divButton {
     padding-top: 40px;
 }
-

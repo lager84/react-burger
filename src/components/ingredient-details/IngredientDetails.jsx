@@ -1,6 +1,8 @@
 import React from 'react';
 import closeButtonImg from '../../images/close-button.png';
-import styles  from '../ingredient-details/ingredient-details.module.css';
+import styles from '../ingredient-details/ingredient-details.module.css';
+import PropTypes from 'prop-types';
+import Ingredients from '../utils/prop-types';
 
 
 function IngredientDetails({ closeModal, title, ingredientData }) {
@@ -36,4 +38,9 @@ function IngredientDetails({ closeModal, title, ingredientData }) {
     )
 }
 
+IngredientDetails.propTypes = {
+    ingredientData: PropTypes.shape(Ingredients).isRequired,
+    title: PropTypes.string.isRequired,
+    closeModal: PropTypes.func.isRequired
+}
 export default IngredientDetails;

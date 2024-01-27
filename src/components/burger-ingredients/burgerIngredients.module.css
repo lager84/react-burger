@@ -1,28 +1,28 @@
-.divroot{
-padding: 0 16px;
+.divroot {
+  padding: 0 16px;
 }
 
 
 
 .divcartgroup {
-    overflow-y: scroll;
-    height: 68vh;
-    width: 600px;
-    
+  overflow-y: scroll;
+  height: 68vh;
+  width: 600px;
+
 }
 
 .divcartgroup::-webkit-scrollbar {
-    width: 8px; 
-  }
+  width: 8px;
+}
 
 .divcartgroup::-webkit-scrollbar-track {
-    background: #33333d;
-  }
+  background: #33333d;
+}
 
 .divcartgroup::-webkit-scrollbar-thumb {
-    background-color: #9797c4;
-  }
+  background-color: #9797c4;
+}
 
 .sectionsingredients {
-    max-width: 600px;
+  max-width: 600px;
 }

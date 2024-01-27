@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 
 
-function Modal({ children ,  btnClose  }) {
+function Modal({ children, btnClose }) {
 
-    const modalsContainer = document.querySelector('#root');  
+    const modalsContainer = document.querySelector('#root');
 
     const checkEsc = React.useCallback(e => {
         if (e.key === "Escape") {
@@ -18,35 +18,34 @@ function Modal({ children ,  btnClose  }) {
         }
     }, [btnClose]);
 
-    
 
 
-        React.useEffect(() => {
-            document.addEventListener("keydown", checkEsc, false);
-    
-            return () => {
-                document.removeEventListener("keydown", checkEsc, false);
-            };
-        }, [checkEsc]);
-    
 
-     
+    React.useEffect(() => {
+        document.addEventListener("keydown", checkEsc, false);
 
-    return ReactDOM.createPortal((     
+        return () => {
+            document.removeEventListener("keydown", checkEsc, false);
+        };
+    }, [checkEsc]);
+
+
+
+
+    return ReactDOM.createPortal((
         <>
-        <div className={styles.modalOrder}>
-                {children}    
+            <div className={styles.modalOrder}>
+                {children}
             </div>
             <ModalOverlay onClick={btnClose} />
-       </>
-        
+        </>
+
     ), modalsContainer);
 }
 
 Modal.propTypes = {
     title: PropTypes.string.isRequired,
     onOverlayClick: PropTypes.func.isRequired,
-    onEsc: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired
 }
 export default Modal
