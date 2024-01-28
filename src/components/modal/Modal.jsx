@@ -6,11 +6,10 @@ import PropTypes from 'prop-types';
 
 
 
-
+const modalsContainer = document.querySelector('#root');
 
 function Modal({ children, btnClose }) {
 
-    const modalsContainer = document.querySelector('#root');
 
     const checkEsc = React.useCallback(e => {
         if (e.key === "Escape") {
