@@ -14,20 +14,6 @@
     font-size: 60px;
 }
 
-.order_closeButton {
-    background-color: transparent;
-    border: none;
-    position: absolute;
-    right: 40px;
-    top: 40px;
-    transition: all 0.3s;
-}
-
-.order_closeButton:hover {
-    opacity: 0.6;
-    transition: all 0.3s;
-    cursor: pointer;
-}
 
 .order_descriptionReady {
     color: #9595be;
@@ -49,4 +35,19 @@
 .imgorder {
     padding-top: 60px;
     padding-bottom: 60px;
+}
+
+.order_closeButton {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    transition: all 0.3s;
+}
+
+.order_closeButton:hover {
+    opacity: 0.6;
+    transition: all 0.3s;
+    cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import { BASE_URL } from './domain'
 
+
 export function getIngredients() {
 
   return fetch(`${BASE_URL}/ingredients`)
@@ -7,3 +8,4 @@ export function getIngredients() {
     .catch((error) => { console.log(error) })
 
 }
+

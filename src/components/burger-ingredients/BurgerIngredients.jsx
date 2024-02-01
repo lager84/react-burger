@@ -2,17 +2,17 @@ import React from 'react';
 import styles from '../burger-ingredients/burgerIngredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import CartGroup from '../cart-group/CartGroup';
-import PropTypes from 'prop-types';
-import Ingredients from '../utils/prop-types';
+import {IngredientsContext} from '../services/ingredientsContext'
 
 
 
 
 
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients() {
 
-  const [current, setCurrent] = React.useState('one')
+  const { data } = React.useContext(IngredientsContext);
+  const [current, setCurrent] = React.useState('bun')
   const bun = data.filter(i => i.type === 'bun');
   const sauce = data.filter(i => i.type === 'sauce');
   const nach = data.filter(i => i.type === 'main');
@@ -50,8 +50,6 @@ function BurgerIngredients({ data }) {
   )
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(Ingredients).isRequired).isRequired
-}
+
 
 export default BurgerIngredients;

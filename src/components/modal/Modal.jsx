@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 
 
+
 const modalsContainer = document.querySelector('#root');
 
 function Modal({ children, btnClose }) {
@@ -19,7 +20,6 @@ function Modal({ children, btnClose }) {
 
 
 
-
     React.useEffect(() => {
         document.addEventListener("keydown", checkEsc, false);
 
@@ -28,7 +28,7 @@ function Modal({ children, btnClose }) {
         };
     }, [checkEsc]);
 
-
+ 
 
 
     return ReactDOM.createPortal((
@@ -43,8 +43,6 @@ function Modal({ children, btnClose }) {
 }
 
 Modal.propTypes = {
-    title: PropTypes.string.isRequired,
-    onOverlayClick: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired
 }
 export default Modal

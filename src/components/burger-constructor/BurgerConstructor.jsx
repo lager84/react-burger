@@ -1,35 +1,54 @@
 import React from 'react';
 import styles from '../burger-constructor/burgerConstructor.module.css'
-import { DragIcon, ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
-import Ingredients from '../utils/prop-types';
-
-
-function BurgerConstructor({ data, openModals }) {
-
-  const bun = data.filter(i => i.type === 'bun');
-  const notBun = data.filter(i => i.type !== 'bun').slice(0, 6);
+import { DragIcon, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { OrderContext } from '../services/orderContext';
+import { BUN } from '../utils/ingrediebtsName'
+import Order from '../order/Order';
 
 
 
 
+function BurgerConstructor() {
 
-  return (
+  const [bun, setBun] = React.useState(null);
+
+  const {data,ingredients, setIngredients, sumDispatcher, sumState } = React.useContext(OrderContext);
+
+
+
+  React.useEffect(() => {
+    const buns = data.find(i => i.type === BUN);
+    setBun(buns);
+    const notBun = data.filter(i => i.type !== BUN).slice(0, 6);
+    setIngredients(notBun);
+  }, [data, setBun, setIngredients]);
+
+
+  React.useEffect(() => {
+    if (bun) {
+      const total = bun.price * 2 + ingredients.reduce((sum, item) => sum += item.price, 0);
+      sumDispatcher({ type: 'set', value: total });
+    }
+  }, [bun, ingredients, sumDispatcher]);
+
+
+
+  return bun && (
 
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} >
       <div className={styles.libun}>
         <ConstructorElement
           type="top"
           isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={bun[0].price}
-          thumbnail={bun[0].image}
+          text={`${bun.name} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image}
         />
       </div>
       <ul className={styles.ulIng}>
         <li className={styles.liIng}>
         </li>
-        {notBun.map((i) => {
+        {ingredients.map((i) => {
           return (
             <li key={i._id} className={styles.liIng}>
               <DragIcon type="primary" />
@@ -47,21 +66,17 @@ function BurgerConstructor({ data, openModals }) {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={bun[0].price}
-          thumbnail={bun[0].image}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image}
         />
       </div>
       <div className={styles.divTotal}>
         <div className={styles.divTotalChild}>
-          <span className={styles.pTotal}>1610</span>
+          <span className={styles.pTotal}>{sumState.sum}</span>
           <CurrencyIcon type="primary" />
         </div>
-        <div>
-          <Button htmlType="button" type="primary" size="large" onClick={openModals}>
-            Оформить заказ
-          </Button>
-        </div>
+        <Order />
       </div>
     </div>
 
@@ -69,9 +84,6 @@ function BurgerConstructor({ data, openModals }) {
 
   );
 }
-BurgerConstructor.propTypes = {
-  openModals: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape(Ingredients).isRequired).isRequired
-}
+
 
 export default BurgerConstructor;

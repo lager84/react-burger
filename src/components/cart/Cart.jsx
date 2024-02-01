@@ -31,8 +31,6 @@ function Cart({ ingredient }) {
       <p className={styles.cartdescription}>{ingredient.name}</p>
       {ingredientDetails.isOpened &&
         <Modal
-          title={'Детали ингредиента'}
-          onOverlayClick={closeModals}
           btnClose={closeModals}>
           <IngredientDetails title={`Детали ингредиента`} ingredientData={ingredientDetails.ingredient} closeModal={closeModals} />
         </Modal>}

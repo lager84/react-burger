@@ -2,38 +2,29 @@ import React from 'react';
 import styles from './app.module.css'
 import AppHeader from '../app-header/AppHeader'
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients'
-import BurgerConstructor from '../burger-constructor/BurgerConstructor'
-import Modal from '../modal/Modal'
-import OrderDetails from '../order-details/OrderDetails'
+import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 import { getIngredients } from '../utils/burger-api';
+import { OrderContext } from '../services/orderContext';
+import {IngredientsContext} from '../services/ingredientsContext'
+import { sumReducer, sumInitialValue } from '../services/sumReducer';
 
 
 
 
 function App() {
-  const [openOrderModals, setOpenOrderModals] = React.useState({ isOpened: false });
+
+
+
   const [state, setState] = React.useState({ apiData: [], success: false });
-  const openOrderModal = () => {
-    setOpenOrderModals({ ...openOrderModals, isOpened: true });
-  }
 
-  const closeModals = () => {
-    setOpenOrderModals({ ...openOrderModals, isOpened: false });
-  }
+  const [ingredients, setIngredients] = React.useState([]);
 
-
-  /*const getData = () => {
-    return fetch('https://norma.nomoreparties.space/api/ingredients')
-      .then((res) => { return res.ok ? res.json() : setState({ ...state, success: false }); })
-      .then((data) => { setState({ apiData: data.data, success: data.success }) })
-      .catch((error) => { console.log(error) })
-  }*/
-
+  const [sumState, sumDispatcher] = React.useReducer(sumReducer, sumInitialValue);
 
 
   React.useEffect(() => {
     getIngredients()
-    .then((data) => { setState({ apiData: data.data, success: data.success }) })
+      .then((data) => { setState({ apiData: data.data, success: data.success }) })
   }, []);
 
   return (
@@ -42,22 +33,24 @@ function App() {
       <main className={styles.main}>
         {state.apiData.length && (
           <>
-            <section className={styles.section}><BurgerIngredients data={state.apiData} /></section>
-            <section className={styles.section}><BurgerConstructor data={state.apiData} openModals={openOrderModal} /></section>
+            <section className={styles.section}>
+              <IngredientsContext.Provider value={{data:state.apiData}}>
+              <BurgerIngredients/>
+              </IngredientsContext.Provider>
+            </section>
+            <section className={styles.section}>
+              <OrderContext.Provider value={{
+                data: state.apiData,
+                ingredients, setIngredients, sumState, sumDispatcher
+              }}>
+                <BurgerConstructor />
+              </OrderContext.Provider>
+            </section>
           </>
+
         )
         }
       </main>
-
-      {openOrderModals.isOpened &&
-        <Modal
-          btnClose={closeModals}
-          title={'Детали заказа'}
-          onOverlayClick={closeModals}
-        >
-          <OrderDetails btnClose={closeModals} />
-        </Modal>}
-
 
 
     </div>
