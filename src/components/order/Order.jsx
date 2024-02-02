@@ -3,8 +3,8 @@ import styles from '../order/order.module.css'
 import Modal from '../modal/Modal'
 import OrderDetails from '../order-details/OrderDetails'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { postOrder } from '../utils/order-api';
-import { OrderContext } from '../services/orderContext';
+import { postOrder } from '../../utils/order-api';
+import { OrderContext } from '../../services/orderContext';
 
 
 function Order() {
@@ -43,7 +43,7 @@ function Order() {
             </Button>
             {openOrderModals.isOpened &&
                 <Modal btnClose={closeModals}>
-                    <OrderDetails orderNumber={number} btnClose={closeModals} />
+                    <OrderDetails orderNumber={number}/>
                 </Modal>}
         </div>
 

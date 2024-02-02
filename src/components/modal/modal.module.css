@@ -19,3 +19,32 @@
     transition: all 0.3s;
 }
 
+
+.order_closeButton {
+    align-self: center;
+    cursor: pointer;
+    flex: 0 0 auto;
+    width: 40px;
+    display: flex;
+    margin-top: 40px;
+   
+    
+}
+
+.order_closeButton:hover {
+    opacity: 0.6;
+}
+
+.ingredient_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 650px;
+    margin-left: 40px;
+    
+}
+
+.ingredient_title {
+    max-width: 520px;
+    margin-top: 40px;
+}

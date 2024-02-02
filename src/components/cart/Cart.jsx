@@ -3,7 +3,7 @@ import styles from '../cart/cart.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientDetails from '../ingredient-details/IngredientDetails';
 import Modal from '../modal/Modal';
-import Ingredients from '../utils/prop-types';
+import Ingredients from '../../utils/prop-types';
 import PropTypes from 'prop-types';
 
 
@@ -30,9 +30,9 @@ function Cart({ ingredient }) {
       </div>
       <p className={styles.cartdescription}>{ingredient.name}</p>
       {ingredientDetails.isOpened &&
-        <Modal
+        <Modal title={`Детали ингредиента`}
           btnClose={closeModals}>
-          <IngredientDetails title={`Детали ингредиента`} ingredientData={ingredientDetails.ingredient} closeModal={closeModals} />
+          <IngredientDetails  ingredientData={ingredientDetails.ingredient} closeModal={closeModals} />
         </Modal>}
     </li>
   );

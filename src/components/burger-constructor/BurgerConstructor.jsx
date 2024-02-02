@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../burger-constructor/burgerConstructor.module.css'
 import { DragIcon, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { OrderContext } from '../services/orderContext';
-import { BUN } from '../utils/ingrediebtsName'
+import { OrderContext } from '../../services/orderContext';
+import { BUN } from '../../utils/ingrediebtsName'
 import Order from '../order/Order';
 
 
@@ -35,7 +35,7 @@ function BurgerConstructor() {
 
   return bun && (
 
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} >
+    <div className={styles.divConstructor} >
       <div className={styles.libun}>
         <ConstructorElement
           type="top"

@@ -62,3 +62,10 @@
 .divButton {
     padding-top: 40px;
 }
+
+.divConstructor
+{
+    display: 'flex';
+    flex-direction: 'column';
+     gap: '10px';
+}

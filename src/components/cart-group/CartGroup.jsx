@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../cart-group/cart-group.module.css'
 import Cart from '../cart/Cart';
 import PropTypes from 'prop-types';
-import Ingredients from '../utils/prop-types';
+import Ingredients from '../../utils/prop-types';
 
 
 function CartGroup({ datacart, title }) {
@@ -20,7 +20,7 @@ function CartGroup({ datacart, title }) {
 }
 
 CartGroup.propTypes = {
-  datacart: PropTypes.arrayOf(PropTypes.shape(Ingredients)),
+  datacart: PropTypes.arrayOf(PropTypes.shape(Ingredients).isRequired).isRequired,
   title: PropTypes.string.isRequired
 }
 

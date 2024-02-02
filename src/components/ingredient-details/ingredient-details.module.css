@@ -6,17 +6,6 @@
     position: relative;
 }
 
-.ingredient_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 640px;
-
-}
-
-.ingredient_title {
-    max-width: 520px;
-}
 
 .ingredient_itemValue {
     line-height: 24px;

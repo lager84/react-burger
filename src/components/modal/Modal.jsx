@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import styles from '../modal/modal.module.css'
 import ModalOverlay from '../modal-overlay/ModalOverlay';
 import PropTypes from 'prop-types';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 
 
 const modalsContainer = document.querySelector('#root');
 
-function Modal({ children, btnClose }) {
+function Modal({ title,children, btnClose }) {
 
 
     const checkEsc = React.useCallback(e => {
@@ -33,7 +34,11 @@ function Modal({ children, btnClose }) {
 
     return ReactDOM.createPortal((
         <>
-            <div className={styles.modalOrder}>
+            <div className={styles.modalOrder}>         
+            <div className={styles.ingredient_header}>
+                <h2 className={styles.ingredient_title}>{title}</h2>
+                <div className={styles.order_closeButton}><CloseIcon type="primary" onClick={btnClose}/></div>
+            </div>
                 {children}
             </div>
             <ModalOverlay onClick={btnClose} />
@@ -43,6 +48,8 @@ function Modal({ children, btnClose }) {
 }
 
 Modal.propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    btnClose: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
 }
 export default Modal

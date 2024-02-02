@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../burger-ingredients/burgerIngredients.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import CartGroup from '../cart-group/CartGroup';
-import {IngredientsContext} from '../services/ingredientsContext'
+import {IngredientsContext} from '../../services/ingredientsContext'
 
 
 

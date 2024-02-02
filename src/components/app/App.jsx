@@ -3,10 +3,10 @@ import styles from './app.module.css'
 import AppHeader from '../app-header/AppHeader'
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients'
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
-import { getIngredients } from '../utils/burger-api';
-import { OrderContext } from '../services/orderContext';
-import {IngredientsContext} from '../services/ingredientsContext'
-import { sumReducer, sumInitialValue } from '../services/sumReducer';
+import { getIngredients } from '../../utils/burger-api';
+import { OrderContext } from '../../services/orderContext';
+import {IngredientsContext} from '../../services/ingredientsContext'
+import { sumReducer, sumInitialValue } from '../../services/sumReducer';
 
 
 
@@ -25,6 +25,7 @@ function App() {
   React.useEffect(() => {
     getIngredients()
       .then((data) => { setState({ apiData: data.data, success: data.success }) })
+      .catch((error) => { console.log(error) })
   }, []);
 
   return (

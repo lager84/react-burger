@@ -1,4 +1,6 @@
 import { BASE_URL } from './domain'
+import {checkResponse} from './checkResponse'
+
 
 
 export function postOrder(ingredients) {
@@ -8,6 +10,6 @@ export function postOrder(ingredients) {
         headers: { 'Content-Type': 'application/json;charset=utf-8' },
         body: JSON.stringify({ ingredients: ingredients.map(item => item._id) })
     })
-        .then((res) => { return res.ok ? res.json() : `Ошибка ${res.status}`})
-        .catch((error) => { console.log(error) })
+        .then((res) => checkResponse(res))
+       
 }
