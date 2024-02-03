@@ -28,7 +28,7 @@ function BurgerIngredients() {
           <h2 className="text text_type_main-medium">
             Собери Бургер
           </h2>
-          <div style={{ display: 'flex' }}>
+          <div className={styles.divTabs}>
             <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
               Булки
             </Tab>

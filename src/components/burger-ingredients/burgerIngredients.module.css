@@ -26,3 +26,6 @@
 .sectionsingredients {
   max-width: 600px;
 }
+.divTabs{
+  display: flex;
+}
