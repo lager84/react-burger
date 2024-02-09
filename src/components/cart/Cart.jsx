@@ -1,45 +1,42 @@
 import React from 'react';
 import styles from '../cart/cart.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientDetails from '../ingredient-details/IngredientDetails';
-import Modal from '../modal/Modal';
 import Ingredients from '../../utils/prop-types';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { useDrag } from 'react-dnd';
+import { SET_DISP_INGREDIENT } from '../../services/actions/disp-ingredients';
 
 
-function Cart({ ingredient }) {
+function Cart({ ingredient, count }) {
 
-  const [ingredientDetails, setIngredientDetails] = React.useState({ isOpened: false, ingredient: null });
-
-  function closeModals(e) {
-    setIngredientDetails({ ...ingredientDetails, isOpened: false });
-    e.stopPropagation();
-  }
+  const dispatch = useDispatch();
 
   function getCartsData() {
-    setIngredientDetails({ isOpened: true, ingredient: ingredient })
+    dispatch({ type: SET_DISP_INGREDIENT, item: ingredient });
   }
 
+  const [, dragRef] = useDrag({
+    type: ingredient.type,
+    item: ingredient
+  });
+
   return (
-    <li key={ingredient.id} className={styles.cart} onClick={getCartsData}>
-      <Counter count={1} size="default" extraClass="m-1" />
+    <li key={ingredient.id} className={styles.cart} ref={dragRef} onClick={getCartsData}>
+      <Counter count={count} size="default" extraClass="m-1" />
       <img src={ingredient.image} alt={ingredient.name} ></img>
       <div className={styles.cartprice}>
         <p className={styles.cartcount}>{ingredient.price}</p>
         <CurrencyIcon type="primary" />
       </div>
       <p className={styles.cartdescription}>{ingredient.name}</p>
-      {ingredientDetails.isOpened &&
-        <Modal title={`Детали ингредиента`}
-          btnClose={closeModals}>
-          <IngredientDetails  ingredientData={ingredientDetails.ingredient} closeModal={closeModals} />
-        </Modal>}
     </li>
   );
 }
 
 Cart.propTypes = {
-  ingredient: PropTypes.shape(Ingredients).isRequired
+  ingredient: PropTypes.shape(Ingredients).isRequired,
+  count: PropTypes.number.isRequired
 }
 
 export default Cart;

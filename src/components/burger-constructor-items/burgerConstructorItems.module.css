@@ -1,0 +1,7 @@
+.liIng {
+    display: flex;
+    margin-right: 8px;
+    gap: 8px;
+    justify-content: end;
+    align-items: center;
+}

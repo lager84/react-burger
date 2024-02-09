@@ -10,7 +10,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalsContainer = document.querySelector('#root');
 
-function Modal({ title,children, btnClose }) {
+function Modal({ title, children, btnClose }) {
 
 
     const checkEsc = React.useCallback(e => {
@@ -29,16 +29,16 @@ function Modal({ title,children, btnClose }) {
         };
     }, [checkEsc]);
 
- 
+
 
 
     return ReactDOM.createPortal((
         <>
-            <div className={styles.modalOrder}>         
-            <div className={styles.ingredient_header}>
-                <h2 className={styles.ingredient_title}>{title}</h2>
-                <div className={styles.order_closeButton}><CloseIcon type="primary" onClick={btnClose}/></div>
-            </div>
+            <div className={styles.modalOrder}>
+                <div className={styles.ingredient_header}>
+                    <h2 className={styles.ingredient_title}>{title}</h2>
+                    <div className={styles.order_closeButton}><CloseIcon type="primary" onClick={btnClose} /></div>
+                </div>
                 {children}
             </div>
             <ModalOverlay onClick={btnClose} />

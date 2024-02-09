@@ -1,79 +1,94 @@
-import React from 'react';
+import { useEffect } from 'react';
 import styles from '../burger-constructor/burgerConstructor.module.css'
-import { DragIcon, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { OrderContext } from '../../services/orderContext';
-import { BUN } from '../../utils/ingrediebtsName'
+import { ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { BUN, SAUCE, NACH } from '../../utils/ingrediebtsName'
 import Order from '../order/Order';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT } from '../../services/actions/burger-constructor';
+import { getBun, getConstructorIngredients, getConstructorIngredientsSum } from '../../services/selectors';
+import { useDrop } from 'react-dnd';
+import BurgerConstructorItems from '../../components/burger-constructor-items/BurgerConstructorItems';
+import { v4 as uuid } from 'uuid';
 
 
 
 
 function BurgerConstructor() {
 
-  const [bun, setBun] = React.useState(null);
+  const dispatch = useDispatch();
+  const bun = useSelector(getBun);
+  const ingredients = useSelector(getConstructorIngredients)
+  const sum = useSelector(getConstructorIngredientsSum)
 
-  const {data,ingredients, setIngredients, sumDispatcher, sumState } = React.useContext(OrderContext);
-
-
-
-  React.useEffect(() => {
-    const buns = data.find(i => i.type === BUN);
-    setBun(buns);
-    const notBun = data.filter(i => i.type !== BUN).slice(0, 6);
-    setIngredients(notBun);
-  }, [data, setBun, setIngredients]);
-
-
-  React.useEffect(() => {
-    if (bun) {
-      const total = bun.price * 2 + ingredients.reduce((sum, item) => sum += item.price, 0);
-      sumDispatcher({ type: 'set', value: total });
+  const [, dropBunUp] = useDrop({
+    accept: BUN,
+    drop(item) {
+      dispatch({ type: SET_BUN, item: item });
     }
-  }, [bun, ingredients, sumDispatcher]);
+  });
 
+  const [, dropBunDown] = useDrop({
+    accept: BUN,
+    drop(item) {
+      dispatch({ type: SET_BUN, item: item });
+    }
+  });
 
+  const [, dropIngredient] = useDrop({
+    accept: [SAUCE, NACH],
+    drop(item) {
+      dispatch({ type: ADD_INGREDIENT, item: item });
+    }
+  });
 
-  return bun && (
+  function deleteIngredient(index) {
+    dispatch({ type: DELETE_INGREDIENT, index: index })
+  }
 
-    <div className={styles.divConstructor} >
+  useEffect(() => {
+    let sum = 0;
+    if (bun) {
+      sum += bun.price * 2;
+    }
+    sum += ingredients.reduce((sum, item) => sum += item.price, 0);
+    dispatch({ type: SET_SUM, sum });
+  }, [bun, ingredients, dispatch]);
+
+  return (
+
+    <div ref={dropBunUp} className={styles.divConstructor} >
       <div className={styles.libun}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${bun.name} (верх)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+        {bun &&
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        }
       </div>
-      <ul className={styles.ulIng}>
-        <li className={styles.liIng}>
-        </li>
-        {ingredients.map((i) => {
+      <ul className={styles.ulIng} ref={dropIngredient}>
+        {ingredients.length > 0 && ingredients.map((i, index) => {
           return (
-            <li key={i._id} className={styles.liIng}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                isLocked={false}
-                text={i.name}
-                price={i.price}
-                thumbnail={i.image}
-              />
-            </li>
+            <BurgerConstructorItems key={uuid()} item={i} index={index} onDelete={deleteIngredient} />
           )
         })}
       </ul>
-      <div className={styles.libun}>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${bun.name} (низ)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+
+      <div ref={dropBunDown} className={styles.libun}>
+        {bun &&
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />}
       </div>
       <div className={styles.divTotal}>
         <div className={styles.divTotalChild}>
-          <span className={styles.pTotal}>{sumState.sum}</span>
+          <span className={styles.pTotal}>{sum}</span>
           <CurrencyIcon type="primary" />
         </div>
         <Order />
@@ -83,6 +98,7 @@ function BurgerConstructor() {
 
 
   );
+
 }
 
 

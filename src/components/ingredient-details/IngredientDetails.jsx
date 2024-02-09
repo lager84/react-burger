@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Ingredients from '../../utils/prop-types';
 
 
-function IngredientDetails({ingredientData }) {
+function IngredientDetails({ ingredientData }) {
     const { image_large, name, calories, carbohydrates, fat, proteins } = ingredientData;
 
     return (
@@ -35,6 +35,6 @@ function IngredientDetails({ingredientData }) {
 
 IngredientDetails.propTypes = {
     ingredientData: PropTypes.shape(Ingredients).isRequired,
-    closeModal: PropTypes.func.isRequired
+
 }
 export default IngredientDetails;

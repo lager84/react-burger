@@ -4,7 +4,7 @@ import styles from '../order-details/order-details.module.css';
 import PropTypes from 'prop-types';
 
 
-function OrderDetails({orderNumber}) {
+function OrderDetails({ orderNumber }) {
 
     return (
 
