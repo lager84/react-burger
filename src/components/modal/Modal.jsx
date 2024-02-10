@@ -8,7 +8,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 
-const modalsContainer = document.querySelector('#root');
+const modalsContainer = document.querySelector('#modals');
 
 function Modal({ title, children, btnClose }) {
 

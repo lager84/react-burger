@@ -29,7 +29,7 @@ function BurgerConstructorItems({ item, index, onDelete }) {
     drag(drop(ref));
 
     return (
-        <li className={styles.liIng} ref={ref} key={index}>
+        <li className={styles.liIng} ref={ref}>
             <DragIcon type="primary" />
             <ConstructorElement
                 isLocked={false}

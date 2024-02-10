@@ -1,11 +1,10 @@
 import { BASE_URL } from './domain'
-import {checkResponse} from './checkResponse'
+import { request} from './request'
 
 
 export function getIngredients() {
 
-  return fetch(`${BASE_URL}/ingredients`)
-    .then((res) => checkResponse(res))
+  return request(`${BASE_URL}/ingredients`)
 
 }
 

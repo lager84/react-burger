@@ -3,7 +3,7 @@ import styles from '../burger-ingredients-tab/burgerIngredientsTab.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { SET_TAB } from '../../services/actions/tabs-info';
-import { BUN, SAUCE, NACH, names } from '../../utils/ingrediebtsName';
+import { BUN, SAUCE, MAIN, names } from '../../utils/ingrediebtsName';
 import { getTabsInfo } from '../../services/selectors';
 
 
@@ -24,8 +24,8 @@ function BurgerIngredientsTab({ tabChange }) {
       <Tab value={SAUCE} active={tabs === SAUCE} onClick={change}>
         {names[SAUCE]}
       </Tab>
-      <Tab value={NACH} active={tabs === NACH} onClick={change}>
-        {names[NACH]}
+      <Tab value={MAIN} active={tabs === MAIN} onClick={change}>
+        {names[MAIN]}
       </Tab>
     </div>
   );

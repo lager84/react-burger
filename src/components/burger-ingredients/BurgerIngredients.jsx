@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react';
 import styles from '../burger-ingredients/burgerIngredients.module.css'
 import { getData, getDispIngedients } from '../../services/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { BUN, SAUCE, NACH, names } from '../../utils/ingrediebtsName';
+import { BUN, SAUCE, MAIN, names } from '../../utils/ingrediebtsName';
 import BurgerIngredientsTab from '../burger-ingredients-tab/BurgerIngredientsTab'
 import { getBun, getConstructorIngredients, getTabsInfo } from '../../services/selectors';
 import { SET_TAB } from '../../services/actions/tabs-info';
@@ -29,7 +29,7 @@ function BurgerIngredients() {
     let fdate = {};
     fdate[BUN] = data.filter(i => i.type === BUN);
     fdate[SAUCE] = data.filter(i => i.type === SAUCE);
-    fdate[NACH] = data.filter(i => i.type === NACH);
+    fdate[MAIN] = data.filter(i => i.type === MAIN);
     return fdate;
   }, [data]);
 
@@ -37,7 +37,7 @@ function BurgerIngredients() {
   const headersTabs = {};
   headersTabs[BUN] = useRef(null);
   headersTabs[SAUCE] = useRef(null);
-  headersTabs[NACH] = useRef(null);
+  headersTabs[MAIN] = useRef(null);
 
   function tabChange(value) {
     headersTabs[value].current.scrollIntoView({ behavior: "smooth" });
@@ -88,7 +88,7 @@ function BurgerIngredients() {
         <BurgerIngredientsTab tabChange={tabChange} />
 
         <div className={styles.divcartgroup} onScroll={handleScroll}>
-          {[BUN, SAUCE, NACH].map((type, typeIndex) => (
+          {[BUN, SAUCE, MAIN].map((type, typeIndex) => (
             <div key={typeIndex}>
               <h2 className="text text_type_main-medium mt-8" ref={headersTabs[type]}>{names[type]}</h2>
               <ul className={styles.ulgroup}>

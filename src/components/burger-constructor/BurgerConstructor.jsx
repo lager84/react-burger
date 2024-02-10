@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import styles from '../burger-constructor/burgerConstructor.module.css'
 import { ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BUN, SAUCE, NACH } from '../../utils/ingrediebtsName'
+import { BUN, SAUCE, MAIN } from '../../utils/ingrediebtsName'
 import Order from '../order/Order';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT } from '../../services/actions/burger-constructor';
 import { getBun, getConstructorIngredients, getConstructorIngredientsSum } from '../../services/selectors';
 import { useDrop } from 'react-dnd';
 import BurgerConstructorItems from '../../components/burger-constructor-items/BurgerConstructorItems';
-import { v4 as uuid } from 'uuid';
+
+
 
 
 
@@ -35,7 +36,7 @@ function BurgerConstructor() {
   });
 
   const [, dropIngredient] = useDrop({
-    accept: [SAUCE, NACH],
+    accept: [SAUCE, MAIN],
     drop(item) {
       dispatch({ type: ADD_INGREDIENT, item: item });
     }
@@ -71,7 +72,7 @@ function BurgerConstructor() {
       <ul className={styles.ulIng} ref={dropIngredient}>
         {ingredients.length > 0 && ingredients.map((i, index) => {
           return (
-            <BurgerConstructorItems key={uuid()} item={i} index={index} onDelete={deleteIngredient} />
+            <BurgerConstructorItems key={ingredients.uniqueId} item={i} index={index} onDelete={deleteIngredient} />
           )
         })}
       </ul>
