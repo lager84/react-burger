@@ -4,10 +4,11 @@ import { ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-
 import { BUN, SAUCE, MAIN } from '../../utils/ingrediebtsName'
 import Order from '../order/Order';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT } from '../../services/actions/burger-constructor';
+import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT,addIngridient } from '../../services/actions/burger-constructor';
 import { getBun, getConstructorIngredients, getConstructorIngredientsSum } from '../../services/selectors';
 import { useDrop } from 'react-dnd';
 import BurgerConstructorItems from '../../components/burger-constructor-items/BurgerConstructorItems';
+
 
 
 
@@ -20,6 +21,8 @@ function BurgerConstructor() {
   const bun = useSelector(getBun);
   const ingredients = useSelector(getConstructorIngredients)
   const sum = useSelector(getConstructorIngredientsSum)
+  
+
 
   const [, dropBunUp] = useDrop({
     accept: BUN,
@@ -38,7 +41,7 @@ function BurgerConstructor() {
   const [, dropIngredient] = useDrop({
     accept: [SAUCE, MAIN],
     drop(item) {
-      dispatch({ type: ADD_INGREDIENT, item: item });
+      dispatch(addIngridient(item));
     }
   });
 
@@ -72,7 +75,7 @@ function BurgerConstructor() {
       <ul className={styles.ulIng} ref={dropIngredient}>
         {ingredients.length > 0 && ingredients.map((i, index) => {
           return (
-            <BurgerConstructorItems key={ingredients.uniqueId} item={i} index={index} onDelete={deleteIngredient} />
+            <BurgerConstructorItems key={i.uniqueId} item={i} index={index} onDelete={deleteIngredient} />
           )
         })}
       </ul>

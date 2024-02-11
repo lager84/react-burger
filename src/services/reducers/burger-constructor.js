@@ -6,13 +6,12 @@ import {
     MOVE_INGREDIENTS,
     DELETE_INGREDIENT_ALL
 } from '../actions/burger-constructor';
-import { v4 as uuid } from 'uuid';
+
 
 const initialState = {
     bun: null,
     ingredients: [],
-    sum: 0,
-    uniqueId: null
+    sum: 0
 }
 
 export function burgerConstructorReducer(state = initialState, action) {
@@ -20,7 +19,7 @@ export function burgerConstructorReducer(state = initialState, action) {
         case SET_BUN:
             return { ...state, bun: action.item };
         case ADD_INGREDIENT:
-            return { ...state, ingredients: [...state.ingredients, action.item] , uniqueId: uuid() };
+            return { ...state, ingredients: [...state.ingredients, action.payload] };
         case DELETE_INGREDIENT:
             return { ...state, ingredients: [...state.ingredients].filter((_item, index) => index !== action.index) };
         case SET_SUM:
