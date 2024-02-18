@@ -4,7 +4,7 @@ import { ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-
 import { BUN, SAUCE, MAIN } from '../../utils/ingrediebtsName'
 import Order from '../order/Order';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT,addIngridient } from '../../services/actions/burger-constructor';
+import { SET_BUN, SET_SUM, DELETE_INGREDIENT,addIngridient } from '../../services/actions/burger-constructor';
 import { getBun, getConstructorIngredients, getConstructorIngredientsSum } from '../../services/selectors';
 import { useDrop } from 'react-dnd';
 import BurgerConstructorItems from '../../components/burger-constructor-items/BurgerConstructorItems';
