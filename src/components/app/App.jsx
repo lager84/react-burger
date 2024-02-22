@@ -1,50 +1,54 @@
 import { useEffect } from 'react';
 import styles from './app.module.css'
 import AppHeader from '../app-header/AppHeader'
-import BurgerIngredients from '../burger-ingredients/BurgerIngredients'
-import BurgerConstructor from '../burger-constructor/BurgerConstructor';
-import { useSelector, useDispatch } from 'react-redux';
-import { loadApiIngredients } from '../../services/actions/load-api-ingredients';
-import { getData } from '../../services/selectors';
+import { SET_DISP_INGREDIENT } from '../../services/actions/disp-ingredients';
+import { useDispatch } from 'react-redux';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { MainPage, IngredientPage, Profile, ProfileEdit, ProfileOrders, ProfileLogout,
+  Login, Register, ResetPassword, ForgotPassword, NotFound404 } from '../../pages';
+import { URL_ROOT, URL_INGREDIENTS, URL_LOGIN, URL_REGISTER, URL_RESET_PASSWORD, URL_FORGOT_PASSWORD,
+  URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY } from '../../utils/routes';
+import ProtectedRoute from '../protected-route';
 
-const LOADING_DATA = "Идет загрузка...";
 
-const ERROR_DATA = "Ошибка при загрузке данных с сервера";
 
 function App() {
 
-  const { data, loadData, errorData } = useSelector(getData);
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const stateLocation = location.state && location.state.location;
+  const item = location.state && location.state.item;
+ 
   useEffect(() => {
-    dispatch(loadApiIngredients());
-  }, [dispatch]);
-
+      dispatch({type: SET_DISP_INGREDIENT, item: item});
+  }, [dispatch, item]);
 
 
   return (
-    <>
-      {(loadData || errorData) ? (
-        <section>
-          <p >
-            {loadData ? LOADING_DATA : errorData ? ERROR_DATA : null}
-          </p>
-        </section>)
-        : (data && data.length > 0) ? (
+    
+        
+   
           <div className={styles.divheader}>
             <AppHeader />
-            <main className={styles.main}>
-              <section className={styles.section}>
-                <BurgerIngredients />
-              </section>
-              <section className={styles.section}>
-               <BurgerConstructor />
-              </section>
-            </main>
+            <div className={styles.main}>
+            <Routes location={stateLocation || location}>
+            <Route path={URL_ROOT} element={<MainPage />} />
+            <Route path={URL_LOGIN} element={<Login />} />
+            <Route path={URL_FORGOT_PASSWORD} element={<ForgotPassword />} />
+            <Route path={URL_RESET_PASSWORD} element={<ResetPassword />} />
+            <Route path={`${URL_INGREDIENTS}/:id`} element={<IngredientPage />} />
+            <Route path={URL_REGISTER} element={<Register />} />
+            <Route path={URL_PROFILE} element={<ProtectedRoute element={<Profile />} />}>
+                <Route index element={<ProfileEdit />} />
+                <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} />
+                <Route path={URL_PROFILE_LOGOUT} element={<ProfileLogout />} />
+                <Route path={URL_ANY} element={<NotFound404 />} />
+            </Route>
+            <Route path={URL_ANY} element={<NotFound404 />} />
+            </Routes>
+            </div>
           </div>
-        ) : null
-      }
-    </>
+    
   )
 
     }

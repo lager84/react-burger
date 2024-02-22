@@ -1,52 +1,43 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from '../app-header/appheader.module.css'
+import { URL_PROFILE, URL_ROOT, URL_LENTA } from '../../utils/routes';
+import HeaderIcon from '../header-icon/HeaderIcon'
+import { Link } from 'react-router-dom';
+import { getAuth } from '../../services/selectors';
+
 
 
 
 
 function AppHeader() {
 
+    
 
-
-  const NavBar = (props) => {
-    return (
-      <header className={styles.header}>
-        {props.children}
-      </header>
-    );
-  }
-
-  const Menu = (props) => {
-    return (
-      <nav className={styles.nav}>
-        {props.children}
-      </nav>
-    );
-  }
-  const MenuItem = (props) => {
-    return (
-      <ul>
-        <li className={styles.ul}>
-          <a className={props.activ} href='#'>{props.icon}{props.text}</a>
-        </li>
-      </ul>
-    );
-  }
+const { user } = useSelector(getAuth);
 
   return (
-    <NavBar>
-      <Menu>
-        <MenuItem text="Конструктор" icon={<BurgerIcon type="primary" />} />
-        <MenuItem text="Лента заказов" activ={styles.notactiv} icon={<ListIcon type="secondary" />} />
-      </Menu>
-      <Logo />
-      <div className={styles.divusers}>
-        <Menu>
-          <MenuItem text="Личный кабинет" activ={styles.notactiv} icon={<ProfileIcon type="secondary" />} />
-        </Menu>
-      </div>
-    </NavBar>
+
+    <header className={styles.header}>
+    <div className={styles.divcontainer}>
+        <nav className={styles.nav}>
+            <ul className={styles.ul}>
+                <li><HeaderIcon href={URL_ROOT} icon={BurgerIcon}>Конструктор</HeaderIcon></li>
+                <li><HeaderIcon href={URL_LENTA} icon={ListIcon}>Лента заказов</HeaderIcon></li>
+            </ul>
+        </nav>
+
+        <div className={styles.center}>
+            <Link to={URL_ROOT}><Logo /></Link>
+        </div>
+
+        <div className={styles.right}>
+            <HeaderIcon href={URL_PROFILE} icon={ProfileIcon}>{!user.name ? 'Личный кабинет': user.name }</HeaderIcon>
+        </div>
+    </div>
+</header>
+  
   );
 }
 

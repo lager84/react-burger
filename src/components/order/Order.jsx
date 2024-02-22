@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect , useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import styles from '../order/order.module.css'
 import Modal from '../modal/Modal'
@@ -6,13 +6,21 @@ import OrderDetails from '../order-details/OrderDetails'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CLEAR_ORDER, addOrder } from '../../services/actions/add-order';
 import { DELETE_INGREDIENT_ALL } from '../../services/actions/burger-constructor'
-import { getConstructorIngredients, getBun, getOrder } from '../../services/selectors';
+import {getAuth , getConstructorIngredients, getBun, getOrder } from '../../services/selectors';
+import { useNavigate } from 'react-router';
+import { URL_LOGIN } from '../../utils/routes';
+import { authGetUserAction } from '../../services/actions/auth';
+import {  getCookie } from "../../utils/cookie";
 
 
 
 function Order() {
 
+    const accToken = getCookie("accessToken");
+
     const dispatch = useDispatch();
+
+    const { userLoggedIn, requestStart } = useSelector(getAuth);
 
     const bun = useSelector(getBun);
     const ingredients = useSelector(getConstructorIngredients);
@@ -25,25 +33,36 @@ function Order() {
         }
     }, [orderLoadErrors]);
 
+    const disabled = useMemo(() => {
+        let hasIngredient = (ingredients && ingredients.length) || bun;
+        let hasOrder = orderNumber !== null || orderLoad;
+        return !hasIngredient || hasOrder;
+    }, [bun, ingredients, orderNumber, orderLoad]);
 
-    function showOrder() {
+   
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!userLoggedIn && accToken ==="undefined") {
+            dispatch(authGetUserAction());
+        }
+    }, [userLoggedIn, accToken, dispatch]);
+
+
+    const showOrder = useCallback(() => {
+        if (!userLoggedIn) {
+            navigate(URL_LOGIN, { replace: true });
+        } else{
 
         const orderIngredients = [...ingredients];
         if (bun) {
             orderIngredients.push(bun, bun);
         }
         dispatch(addOrder(orderIngredients));
-
     }
+    }, [requestStart, userLoggedIn, navigate, ingredients, bun, dispatch]);
 
-    const disabled = useMemo(() => {
-        let hasIngredient = (ingredients && ingredients.length) || bun;
-
-        let hasOrder = orderNumber !== null || orderLoad;
-
-        return !hasIngredient || hasOrder;
-    }, [bun, ingredients, orderNumber, orderLoad]);
-
+    
 
     function hideOrder() {
         dispatch({ type: CLEAR_ORDER });

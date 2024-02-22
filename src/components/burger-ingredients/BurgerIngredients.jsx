@@ -10,7 +10,8 @@ import { SET_DISP_INGREDIENT } from '../../services/actions/disp-ingredients'
 import Cart from '../cart/Cart'
 import Modal from '../modal/Modal';
 import IngredientDetails from '../ingredient-details/IngredientDetails'
-
+import { URL_ROOT } from '../../utils/routes';
+import { useNavigate } from 'react-router';
 
 
 
@@ -73,7 +74,10 @@ function BurgerIngredients() {
     return res;
   }, [bun, ingredients]);
 
+  const navigate = useNavigate();
+
   function closeModals(e) {
+    navigate(URL_ROOT, { replace: true });
     dispatch({ type: SET_DISP_INGREDIENT, item: null });
     e.stopPropagation();
   }

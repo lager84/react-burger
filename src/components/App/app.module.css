@@ -1,19 +1,12 @@
-.divheader {
-
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 16px;
+.divcontainer {
+    display: flex;
+    justify-content: stretch;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .main {
-    display: flex;
-    max-width: 1240px;
-    flex-direction: row;
-    gap: 40px;
-    justify-content: space-between;
+    flex-grow: 1;
     margin: 0 auto;
-}
-
-.section {
-    width: 600px;
+    width: var(--width-outer);
 }
