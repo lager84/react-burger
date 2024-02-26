@@ -1,0 +1,17 @@
+.bLogout{
+    font-family: 'Jet Brains Mono';
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 1.25;
+    background: none;
+    border:none;
+    color: var(--text-inactive-color);
+    padding: 0px;
+    
+}
+.profile_panel{
+    display: flex;
+    justify-content: center;
+    padding-right: 360px;
+    
+}

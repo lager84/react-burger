@@ -1,7 +1,14 @@
-import { registerUser, loginUser, logoutUser, refreshToken, forgotPassword, resetPassword, getUser, patchUser } from "../../utils/auth-api";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshToken,
+  forgotPassword,
+  resetPassword,
+  getUser,
+  patchUser,
+} from "../../utils/auth-api";
 import { setCookie, deleteCookie } from "../../utils/cookie";
-
-
 
 export const AUTH_LOGIN_START = "AUTH_LOGIN_START";
 export const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS";
@@ -37,130 +44,132 @@ export const AUTH_PATCH_USER_ERROR = "AUTH_PATCH_USER_ERROR";
 
 export const AUTH_CLEAR_ERRORS = "AUTH_CLEAR_ERRORS";
 
-
 export function authLoginAction(form) {
-    return function (dispatch) {
-        dispatch({ type: AUTH_LOGIN_START });
-        loginUser(form)
-            .then(result => {
-                const accessToken = result.accessToken.split("Bearer ")[1];
-                const refreshToken = result.refreshToken;
-                if (accessToken) {
-                    setCookie("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", refreshToken);
-                }
+  return function (dispatch) {
+    dispatch({ type: AUTH_LOGIN_START });
+    loginUser(form)
+      .then((result) => {
+        const accessToken = result.accessToken.split("Bearer ")[1];
+        const refreshToken = result.refreshToken;
+        if (accessToken) {
+          setCookie("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+        }
 
-                dispatch({ type: AUTH_LOGIN_SUCCESS, user: result.user });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_LOGIN_ERROR, message: err.message });
-            });
-    }
+        dispatch({ type: AUTH_LOGIN_SUCCESS, user: result.user });
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_LOGIN_ERROR, message: err.message });
+      });
+  };
 }
 
 export function authLogoutAction() {
-    return function (dispatch) {
-        dispatch({ type: AUTH_LOGOUT_START });
-        logoutUser()
-            .then(result => {
-                dispatch({ type: AUTH_LOGOUT_SUCCESS });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_LOGOUT_ERROR, message: err.message });
-            });
-        localStorage.removeItem("refreshToken");
-        deleteCookie("accessToken");
-    }
+  return function (dispatch) {
+    dispatch({ type: AUTH_LOGOUT_START });
+    logoutUser()
+      .then((result) => {
+        dispatch({ type: AUTH_LOGOUT_SUCCESS });
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_LOGOUT_ERROR, message: err.message });
+      });
+    localStorage.removeItem("refreshToken");
+    deleteCookie("accessToken");
+  };
 }
 
 export function authTokenAction() {
-    return function (dispatch) {
-        dispatch({ type: AUTH_TOKEN_START });
-        refreshToken()
-            .then(result => {
-                const accessToken = result.accessToken.split("Bearer ")[1];
-                const refreshToken = result.refreshToken;
-                if (accessToken) {
-                    setCookie("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", refreshToken);
-                }
+  return function (dispatch) {
+    dispatch({ type: AUTH_TOKEN_START });
+    refreshToken()
+      .then((result) => {
+        const accessToken = result.accessToken.split("Bearer ")[1];
+        const refreshToken = result.refreshToken;
+        if (accessToken) {
+          setCookie("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+        }
 
-                dispatch({ type: AUTH_TOKEN_SUCCESS, user: result });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_TOKEN_ERROR });
-            });
-    }
+        dispatch({ type: AUTH_TOKEN_SUCCESS, user: result });
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_TOKEN_ERROR });
+      });
+  };
 }
 
-export function authRegisterAction(form) {
-    return function (dispatch) {
-        dispatch({ type: AUTH_REGISTER_START });
-        registerUser(form)
-            .then(result => {
-                const accessToken = result.accessToken.split("Bearer ")[1];
-                const refreshToken = result.refreshToken;
-                if (accessToken) {
-                    setCookie("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", refreshToken);
-                }
+export function authRegisterAction(form, callback) {
+  return function (dispatch) {
+    dispatch({ type: AUTH_REGISTER_START });
+    registerUser(form)
+      .then((result) => {
+        const accessToken = result.accessToken.split("Bearer ")[1];
+        const refreshToken = result.refreshToken;
+        if (accessToken) {
+          setCookie("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+        }
 
-                dispatch({ type: AUTH_REGISTER_SUCCESS, user: result.user });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_REGISTER_ERROR, message: err.message });
-            });
-    }
+        dispatch({ type: AUTH_REGISTER_SUCCESS, user: result.user });
+        callback();
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_REGISTER_ERROR, message: err.message });
+      });
+  };
 }
 
-export function authForgotPasswordAction(form) {
-    return function (dispatch) {
-        dispatch({ type: AUTH_FORGOT_PASSWORD_START });
-        forgotPassword(form)
-            .then(result => {
-                dispatch({ type: AUTH_FORGOT_PASSWORD_SUCCESS });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_FORGOT_PASSWORD_ERROR, message: err.message });
-            });
-    }
+export function authForgotPasswordAction(form, callback) {
+  return function (dispatch) {
+    dispatch({ type: AUTH_FORGOT_PASSWORD_START });
+    forgotPassword(form)
+      .then((result) => {
+        dispatch({ type: AUTH_FORGOT_PASSWORD_SUCCESS });
+        callback();
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_FORGOT_PASSWORD_ERROR, message: err.message });
+      });
+  };
 }
 
-export function authResetPasswordAction(form) {
-    return function (dispatch) {
-        dispatch({ type: AUTH_RESET_PASSWORD_START });
-        resetPassword(form)
-            .then(result => {
-                dispatch({ type: AUTH_RESET_PASSWORD_SUCCESS });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_RESET_PASSWORD_ERROR, message: err.message });
-            });
-    }
+export function authResetPasswordAction(form, callback) {
+  return function (dispatch) {
+    dispatch({ type: AUTH_RESET_PASSWORD_START });
+    resetPassword(form)
+      .then((result) => {
+        dispatch({ type: AUTH_RESET_PASSWORD_SUCCESS });
+        callback();
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_RESET_PASSWORD_ERROR, message: err.message });
+      });
+  };
 }
 
 export function authGetUserAction() {
-    return function (dispatch) {
-        dispatch({ type: AUTH_GET_USER_START });
-        getUser()
-            .then(result => {
-                dispatch({ type: AUTH_GET_USER_SUCCESS, user: result.user });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_GET_USER_ERROR, message: err.message });
-            });
-    }
+  return function (dispatch) {
+    dispatch({ type: AUTH_GET_USER_START });
+    getUser()
+      .then((result) => {
+        dispatch({ type: AUTH_GET_USER_SUCCESS, user: result.user });
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_GET_USER_ERROR, message: err.message });
+      });
+  };
 }
 
 export function authPatchUserAction(form) {
-    return function (dispatch) {
-        dispatch({ type: AUTH_PATCH_USER_START });
-        patchUser(form)
-            .then(result => {
-                dispatch({ type: AUTH_PATCH_USER_SUCCESS, user: result.user });
-            })
-            .catch(err => {
-                dispatch({ type: AUTH_PATCH_USER_ERROR, message: err.message });
-            });
-    }
+  return function (dispatch) {
+    dispatch({ type: AUTH_PATCH_USER_START });
+    patchUser(form)
+      .then((result) => {
+        dispatch({ type: AUTH_PATCH_USER_SUCCESS, user: result.user });
+      })
+      .catch((err) => {
+        dispatch({ type: AUTH_PATCH_USER_ERROR, message: err.message });
+      });
+  };
 }
