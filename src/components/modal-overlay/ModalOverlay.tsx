@@ -1,10 +1,13 @@
-import React from 'react';
+import {FC} from 'react';
 import styles from '../modal-overlay/modal-overlay.module.css'
 import PropTypes from 'prop-types';
 
+type TProps ={
+    onClick:()=>void;
+}
 
 
-function ModalOverlay({ onClick }) {
+const ModalOverlay:FC<TProps> = ({ onClick }) => {
     return (
         <div className={styles.overlay} onClick={onClick} />
     )

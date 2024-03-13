@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SET_BUN, SET_SUM, DELETE_INGREDIENT,addIngridient } from '../../services/actions/burger-constructor';
 import { getBun, getConstructorIngredients, getConstructorIngredientsSum } from '../../services/selectors';
 import { useDrop } from 'react-dnd';
-import BurgerConstructorItems from '../../components/burger-constructor-items/BurgerConstructorItems';
+import BurgerConstructorItems from '../burger-constructor-items/BurgerConstructorItems';
+import { TBurgerConstructor } from '../../utils/type';
 
 
 
@@ -45,7 +46,7 @@ function BurgerConstructor() {
     }
   });
 
-  function deleteIngredient(index) {
+  function deleteIngredient(index:number) {
     dispatch({ type: DELETE_INGREDIENT, index: index })
   }
 
@@ -54,7 +55,7 @@ function BurgerConstructor() {
     if (bun) {
       sum += bun.price * 2;
     }
-    sum += ingredients.reduce((sum, item) => sum += item.price, 0);
+    sum += ingredients.reduce((sum:number, item:TBurgerConstructor) => sum += item.price, 0);
     dispatch({ type: SET_SUM, sum });
   }, [bun, ingredients, dispatch]);
 
@@ -73,7 +74,7 @@ function BurgerConstructor() {
         }
       </div>
       <ul className={styles.ulIng} ref={dropIngredient}>
-        {ingredients.length > 0 && ingredients.map((i, index) => {
+        {ingredients.length > 0 && ingredients.map((i:TBurgerConstructor, index:number) => {
           return (
             <BurgerConstructorItems key={i.uniqueId} item={i} index={index} onDelete={deleteIngredient} />
           )

@@ -13,14 +13,20 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { TForgotPassword } from '../../utils/api';
+
+type TState = TForgotPassword & {
+  wasSubmit?: boolean;
+};
+
 function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const submitCallback = useCallback(
-    (state) => {
+    (state:TState) => {
       dispatch(
-        authForgotPasswordAction(state, () => navigate(URL_RESET_PASSWORD))
+        authForgotPasswordAction(state, () => navigate(URL_RESET_PASSWORD)) as any
       );
     },
     [dispatch, navigate]

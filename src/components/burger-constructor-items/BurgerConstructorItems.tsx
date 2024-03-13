@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef , FC} from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { MOVE_INGREDIENTS } from '../../services/actions/burger-constructor';
@@ -6,9 +6,16 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import styles from './burgerConstructorItems.module.css';
 import PropTypes from 'prop-types';
 import Ingredients from '../../utils/prop-types';
+import { TBurgerConstructor } from '../../utils/type';
 
+type TProps = {
+    item:TBurgerConstructor;
+    index:number;
+    onDelete:(index:number)=>void;
+}
 
-function BurgerConstructorItems({ item, index, onDelete }) {
+const BurgerConstructorItems:FC<TProps> = ({ item, index, onDelete }) => 
+{
     const dispatch = useDispatch();
     const ref = useRef(null);
 
@@ -19,7 +26,7 @@ function BurgerConstructorItems({ item, index, onDelete }) {
 
     const [, drop] = useDrop({
         accept: "sort",
-        drop(item) {
+        drop(item:TProps) {
             if (index !== item.index) {
                 dispatch({ type: MOVE_INGREDIENTS, index1: index, index2: item.index });
             }
@@ -44,11 +51,11 @@ function BurgerConstructorItems({ item, index, onDelete }) {
 
 }
 
-BurgerConstructorItems.propTypes = {
-    item: PropTypes.shape(Ingredients).isRequired,
-    index: PropTypes.number,
-    onDelete: PropTypes.func.isRequired
-}
+// BurgerConstructorItems.propTypes = {
+//     item: PropTypes.shape(Ingredients).isRequired,
+//     index: PropTypes.number,
+//     onDelete: PropTypes.func.isRequired
+//}
 
 
 export default BurgerConstructorItems

@@ -1,4 +1,4 @@
-import { getIngredients } from '../../utils/burger-api'
+import { getIngredients } from '../../utils/api'
 
 
 export const GET_DATA = "GET_DATA";

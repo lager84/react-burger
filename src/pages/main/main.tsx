@@ -13,7 +13,7 @@ function MainPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadApiIngredients());
+    dispatch(loadApiIngredients() as any);
   }, [dispatch]);
 
   return (

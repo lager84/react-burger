@@ -1,4 +1,4 @@
-import { useMemo, useEffect , useCallback } from 'react';
+import { useMemo, useEffect , useCallback, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import styles from '../order/order.module.css'
 import Modal from '../modal/Modal'
@@ -14,7 +14,8 @@ import {  getCookie } from "../../utils/cookie";
 
 
 
-function Order() {
+
+const  Order = () => {
 
     const accToken = getCookie("accessToken");
 
@@ -44,7 +45,7 @@ function Order() {
 
     useEffect(() => {
         if (!userLoggedIn && accToken ==="undefined") {
-            dispatch(authGetUserAction());
+            dispatch(authGetUserAction() as any);
         }
     }, [userLoggedIn, accToken, dispatch]);
 
@@ -58,7 +59,7 @@ function Order() {
         if (bun) {
             orderIngredients.push(bun, bun);
         }
-        dispatch(addOrder(orderIngredients));
+        dispatch(addOrder(orderIngredients) as any);
     }
     }, [requestStart, userLoggedIn, navigate, ingredients, bun, dispatch]);
 

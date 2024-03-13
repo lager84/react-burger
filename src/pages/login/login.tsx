@@ -13,13 +13,19 @@ import {
   authGetUserAction,
 } from "../../services/actions/auth";
 import { URL_FORGOT_PASSWORD, URL_REGISTER } from "../../utils/routes";
+import { TLoginUser } from '../../utils/api';
+
+
+type TState = TLoginUser & {
+  wasSubmit?: boolean;
+};
 
 function Login() {
   const dispatch = useDispatch();
 
   const submitCallback = useCallback(
-    (state) => {
-      dispatch(authLoginAction(state));
+    (state:TState) => {
+      dispatch(authLoginAction(state) as any);
     },
     [dispatch]
   );
@@ -35,7 +41,7 @@ function Login() {
   const { userLoggedIn } = useSelector(getAuth);
 
   if (userLoggedIn) {
-    dispatch(authGetUserAction());
+    dispatch(authGetUserAction() as any);
   }
 
   return (

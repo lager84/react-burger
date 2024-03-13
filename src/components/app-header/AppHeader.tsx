@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import { useSelector } from "react-redux";
 import {
   BurgerIcon,
@@ -12,7 +12,7 @@ import HeaderIcon from "../header-icon/HeaderIcon";
 import { Link } from "react-router-dom";
 import { getAuth } from "../../services/selectors";
 
-function AppHeader() {
+const AppHeader:FC = () => {
   const { user } = useSelector(getAuth);
 
   return (

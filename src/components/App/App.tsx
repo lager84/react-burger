@@ -44,7 +44,7 @@ function App() {
 
   useEffect(() => {
     if (accToken) {
-      dispatch(authGetUserAction());
+      dispatch(authGetUserAction() as any);
     }
   }, [dispatch, accToken]);
 

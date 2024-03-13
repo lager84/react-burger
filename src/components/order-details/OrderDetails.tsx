@@ -1,10 +1,14 @@
-import React from 'react';
+import {FC} from 'react';
 import orderAcceptedImg from '../../images/graphics.svg';
 import styles from '../order-details/order-details.module.css';
-import PropTypes from 'prop-types';
 
 
-function OrderDetails({ orderNumber }) {
+type TProps = {
+    orderNumber:number; 
+}
+
+
+const OrderDetails:FC<TProps> = ({ orderNumber }) => {
 
     return (
 
@@ -21,8 +25,6 @@ function OrderDetails({ orderNumber }) {
 
 }
 
-OrderDetails.propTypes = {
-    orderNumber: PropTypes.number.isRequired
-}
+
 
 export default OrderDetails;

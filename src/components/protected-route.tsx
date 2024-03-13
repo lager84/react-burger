@@ -1,12 +1,17 @@
-import React from "react";
+import {FC} from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { getAuth } from "../services/selectors";
 import { URL_LOGIN, URL_ROOT } from "../utils/routes";
 import Loader from "./loader/Loader";
-import propTypes from "prop-types";
 
-const ProtectedRoute = ({ onlyUnAuth = false, element }) => {
+
+type TProps = {
+  onlyUnAuth?:boolean;
+  element: React.ReactElement;
+}
+
+const ProtectedRoute:FC<TProps> = ({ onlyUnAuth = false, element }) => {
   const location = useLocation();
   const { requestStart, user } = useSelector(getAuth);
 
@@ -26,8 +31,6 @@ const ProtectedRoute = ({ onlyUnAuth = false, element }) => {
   return element;
 };
 
-ProtectedRoute.propTypes = {
-  element: propTypes.element.isRequired,
-};
+
 
 export default ProtectedRoute;

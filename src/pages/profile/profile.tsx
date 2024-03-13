@@ -8,9 +8,9 @@ import styles from "./profile.module.css";
 function Profile() {
   const dispatch = useDispatch();
 
-  const onLogoutHandler = (e) => {
+  const onLogoutHandler = (e:React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(authLogoutAction());
+    dispatch(authLogoutAction() as any);
   };
 
   return (

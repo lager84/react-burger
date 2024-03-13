@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useMemo , FC} from 'react';
 import styles from '../ingredient-details/ingredient-details.module.css';
 import PropTypes from 'prop-types';
 import Ingredients from '../../utils/prop-types';
@@ -7,12 +7,17 @@ import { useParams } from 'react-router';
 import { getData } from '../../services/selectors';
 import { loadApiIngredients } from '../../services/actions/load-api-ingredients';
 import { LOADING_DATA, ERROR_DATA } from '../../utils/message';
+import { TIngredients } from '../../utils/type';
+
+type TProps = {
+    ingredientData?:TIngredients
+}
 
 
 
-function IngredientDetails({ ingredientData }) {
+const IngredientDetails:FC<TProps> = ({ ingredientData }) => {
     
-    //const { image_large, name, calories, carbohydrates, fat, proteins } = ingredientData;
+   
 
     const dispatch = useDispatch();
     const params = useParams();
@@ -21,13 +26,13 @@ function IngredientDetails({ ingredientData }) {
         if (ingredientData) {
             return ingredientData;
         } else if (params.id && data && data.length > 0) {
-            return data.find(i => i._id === params.id);
+            return data.find((i:TIngredients) => i._id === params.id);
         }
         return null;
     }, [ingredientData, params.id, data]);
     
     if (!itemTrue && !dataLoading && !dataHasErrors && params && params.id) {
-        dispatch(loadApiIngredients());
+        dispatch(loadApiIngredients() as any);
     }
 
     
@@ -62,8 +67,4 @@ function IngredientDetails({ ingredientData }) {
     )
 }
 
-IngredientDetails.propTypes = {
-    ingredientData: PropTypes.shape(Ingredients).isRequired
-
-}
 export default IngredientDetails;

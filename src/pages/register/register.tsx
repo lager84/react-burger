@@ -16,13 +16,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from "../../components/loader/Loader";
 
+import { TRegisterUser } from '../../utils/api';
+
+type TState = TRegisterUser & {
+    wasSubmit?: boolean;
+}
+
 function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const submitCallback = useCallback(
-    (state) => {
-      dispatch(authRegisterAction(state, () => navigate(URL_LOGIN)));
+    (state:TState) => {
+      dispatch(authRegisterAction(state, () => navigate(URL_LOGIN))as any);
     },
     [dispatch, navigate]
   );

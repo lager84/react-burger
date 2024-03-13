@@ -11,19 +11,25 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from "../../components/loader/Loader";
+import { TResetPassword } from '../../utils/api';
+
+type TState = TResetPassword & {
+  wasSubmit?: boolean;
+};
+
 
 function ResetPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const submitCallback = useCallback(
-    (state) => {
-      dispatch(authResetPasswordAction(state, () => navigate(URL_LOGIN)));
+    (state:TState) => {
+      dispatch(authResetPasswordAction(state, () => navigate(URL_LOGIN)) as any);
     },
     [dispatch, navigate]
   );
 
-  const { state, onChange, onSubmit } = useFormCallback(
+  const { state, onChange, onSubmit } = useFormCallback<TState>(
     {
       password: "",
       token: "",

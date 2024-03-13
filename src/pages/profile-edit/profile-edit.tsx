@@ -14,14 +14,20 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from "../../components/loader/Loader";
+import { TPatchUser } from '../../utils/api';
+
+type TState = TPatchUser & {
+  wasSubmit?: boolean;
+};
+
 
 function ProfileEdit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const submitCallback = useCallback(
-    (state) => {
-      dispatch(authPatchUserAction(state));
+    (state:TState) => {
+      dispatch(authPatchUserAction(state)  as any);
     },
     [dispatch]
   );
@@ -45,7 +51,7 @@ function ProfileEdit() {
       state.password.length > 0);
 
   const onReset = useCallback(
-    (e) => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       setState({ name: user.name, email: user.email, password: "" });
     },
@@ -80,7 +86,7 @@ function ProfileEdit() {
         name="email"
         value={state.email}
         onChange={onChange}
-        icon="EditIcon"
+        isIcon
       />
       <PasswordInput
         extraClass="mb-6"

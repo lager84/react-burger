@@ -7,7 +7,7 @@ import {
   resetPassword,
   getUser,
   patchUser,
-} from "../../utils/auth-api";
+} from "../../utils/api";
 import { setCookie, deleteCookie } from "../../utils/cookie";
 
 export const AUTH_LOGIN_START = "AUTH_LOGIN_START";
