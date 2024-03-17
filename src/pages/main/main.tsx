@@ -1,21 +1,14 @@
-import { useEffect } from "react";
 import styles from "./main.module.css";
 import BurgerIngredients from "../../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../../components/burger-constructor/BurgerConstructor";
-import { useSelector, useDispatch } from "react-redux";
-import { loadApiIngredients } from "../../services/actions/load-api-ingredients";
+import { useSelector } from "react-redux";
 import { getData } from "../../services/selectors";
 import { ERROR_DATA } from "../../utils/message";
 import Loader from "../../components/loader/Loader";
 
 function MainPage() {
   const { data, loadData, errorData } = useSelector(getData);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadApiIngredients() as any);
-  }, [dispatch]);
-
+ 
   return (
     <>
       {loadData || errorData ? (

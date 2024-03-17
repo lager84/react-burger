@@ -30,6 +30,7 @@ import {
 import { authGetUserAction } from "../../services/actions/auth";
 import ProtectedRoute from "../protected-route";
 import { getCookie } from "../../utils/cookie";
+import { loadApiIngredients } from "../../services/actions/load-api-ingredients";
 
 function App() {
   const accToken = getCookie("accessToken");
@@ -47,6 +48,11 @@ function App() {
       dispatch(authGetUserAction() as any);
     }
   }, [dispatch, accToken]);
+
+  useEffect(() => {
+    dispatch(loadApiIngredients() as any);
+  }, [dispatch]);
+
 
   return (
     <div className={styles.divheader}>

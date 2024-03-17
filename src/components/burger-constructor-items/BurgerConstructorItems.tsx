@@ -4,8 +4,6 @@ import { useDrag, useDrop } from 'react-dnd';
 import { MOVE_INGREDIENTS } from '../../services/actions/burger-constructor';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burgerConstructorItems.module.css';
-import PropTypes from 'prop-types';
-import Ingredients from '../../utils/prop-types';
 import { TBurgerConstructor } from '../../utils/type';
 
 type TProps = {
@@ -51,11 +49,6 @@ const BurgerConstructorItems:FC<TProps> = ({ item, index, onDelete }) =>
 
 }
 
-// BurgerConstructorItems.propTypes = {
-//     item: PropTypes.shape(Ingredients).isRequired,
-//     index: PropTypes.number,
-//     onDelete: PropTypes.func.isRequired
-//}
 
 
 export default BurgerConstructorItems

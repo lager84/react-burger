@@ -1,4 +1,4 @@
-import { useCallback, FC } from "react";
+import { useCallback, FC, useRef } from "react";
 import styles from "../cart/cart.module.css";
 import {
   Counter,
@@ -14,9 +14,11 @@ import { TIngredients } from "../../utils/type";
 type Tprops = {
   ingredient: TIngredients;
   count: number;
+  itemsRef: any;
 };
 
-const Cart: FC<Tprops> = ({ ingredient, count }) => {
+const Cart: FC<Tprops> = ({ ingredient, count, itemsRef }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,16 +36,20 @@ const Cart: FC<Tprops> = ({ ingredient, count }) => {
     item: ingredient,
   });
 
+  itemsRef({ ref, id: ingredient._id });
+
   return (
-    <li className={styles.cart} ref={dragRef} onClick={getCartsData}>
-      <Counter count={count} size="default" extraClass="m-1" />
-      <img src={ingredient.image} alt={ingredient.name}></img>
-      <div className={styles.cartprice}>
-        <p className={styles.cartcount}>{ingredient.price}</p>
-        <CurrencyIcon type="primary" />
-      </div>
-      <p className={styles.cartdescription}>{ingredient.name}</p>
-    </li>
+    <div ref={ref}>
+      <li className={styles.cart} ref={dragRef} onClick={getCartsData}>
+        <Counter count={count} size="default" extraClass="m-1" />
+        <img src={ingredient.image} alt={ingredient.name}></img>
+        <div className={styles.cartprice}>
+          <p className={styles.cartcount}>{ingredient.price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p className={styles.cartdescription}>{ingredient.name}</p>
+      </li>
+    </div>
   );
 };
 

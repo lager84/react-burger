@@ -1,42 +1,46 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../burger-ingredients-tab/burgerIngredientsTab.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { SET_TAB } from "../../services/actions/tabs-info";
 import { BUN, SAUCE, MAIN, names } from "../../utils/ingrediebtsName";
 import { getTabsInfo } from "../../services/selectors";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 type TProps = {
   tabChange: (tab: string) => void;
+  topCategory: string;
 };
 
-const BurgerIngredientsTab: FC<TProps> = ({ tabChange }) => {
-  const tabs = useSelector(getTabsInfo);
+const BurgerIngredientsTab: FC<TProps> = ({ tabChange, topCategory }) => {
+  //const tabs = useSelector(getTabsInfo);
   const dispatch = useDispatch();
+  const [current, setCurrent] = useState("bun");
 
   function change(type: string) {
     dispatch({ type: SET_TAB, tab: type });
     tabChange(type);
+    setCurrent(topCategory);
   }
+
+  console.log(current);
+
+  useEffect(() => {
+    setCurrent(topCategory);
+  }, [topCategory]);
 
   return (
     <div className={styles.divTabs}>
-      <Tab value={BUN} active={tabs === BUN} onClick={change}>
+      <Tab value={BUN} active={current === BUN} onClick={change}>
         {names[BUN]}
       </Tab>
-      <Tab value={SAUCE} active={tabs === SAUCE} onClick={change}>
+      <Tab value={SAUCE} active={current === SAUCE} onClick={change}>
         {names[SAUCE]}
       </Tab>
-      <Tab value={MAIN} active={tabs === MAIN} onClick={change}>
+      <Tab value={MAIN} active={current === MAIN} onClick={change}>
         {names[MAIN]}
       </Tab>
     </div>
   );
-};
-
-BurgerIngredientsTab.propTypes = {
-  tabChange: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredientsTab;

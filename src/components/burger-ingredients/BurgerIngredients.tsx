@@ -1,4 +1,4 @@
-import { useMemo, useRef, FC } from "react";
+import { useMemo, useRef, FC, useState, useCallback, useEffect } from "react";
 import styles from "../burger-ingredients/burgerIngredients.module.css";
 import { getData, getDispIngedients } from "../../services/selectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,34 @@ import { URL_ROOT } from "../../utils/routes";
 import { useNavigate } from "react-router";
 import { TIngredients } from "../../utils/type";
 
+const useTopId = () => {
+  const listRef = useRef<any>();
+  const items = useRef<any>({});
+  const [topId, setTopId] = useState("");
+
+  const itemsRef = (el: any) => {
+    if (el) items.current[el.id] = el;
+  };
+
+  const onScroll = useCallback(() => {
+    const listTop = listRef.current.getBoundingClientRect().top;
+    let id = "";
+    let minDiff = Number.MAX_VALUE;
+    for (let item in items.current) {
+      const diff = Math.abs(
+        items.current[item].ref.current.getBoundingClientRect().top - listTop
+      );
+      if (diff >= 0 && minDiff > diff) {
+        minDiff = diff;
+        id = items.current[item].id;
+      }
+    }
+    if (id && id !== topId) setTopId(id);
+  }, [topId, items, listRef]);
+
+  return { listRef, itemsRef, onScroll, topId, items };
+};
+
 const BurgerIngredients: FC = () => {
   const dispIngredient = useSelector(getDispIngedients);
   const { data } = useSelector(getData);
@@ -25,6 +53,12 @@ const BurgerIngredients: FC = () => {
   const ingredients = useSelector(getConstructorIngredients);
   const tabs = useSelector(getTabsInfo);
   const dispatch = useDispatch();
+  const { listRef, itemsRef, onScroll, topId } = useTopId();
+  const [currentTab, setCurrentTab] = useState("bun");
+
+  useEffect(() => {
+    if (topId) setCurrentTab(topId);
+  }, [topId]);
 
   const tabsGroup = useMemo(() => {
     let fdate: Record<string, Array<TIngredients>> = {};
@@ -83,13 +117,20 @@ const BurgerIngredients: FC = () => {
     e?.stopPropagation();
   }
 
+  useEffect(() => {
+    const topCategory = data?.find(
+      (ingredient: TIngredients) => ingredient._id === topId
+    )?.type;
+    if (topCategory) setCurrentTab(topCategory);
+  }, [topId]);
+
   return (
     <section className={styles.sectionsingredients}>
       <div className={styles.divroot}>
         <h2 className="text text_type_main-medium">Собери Бургер</h2>
-        <BurgerIngredientsTab tabChange={tabChange} />
+        <BurgerIngredientsTab topCategory={currentTab} tabChange={tabChange} />
 
-        <div className={styles.divcartgroup} onScroll={handleScroll}>
+        <div className={styles.divcartgroup} onScroll={onScroll} ref={listRef}>
           {[BUN, SAUCE, MAIN].map((type, typeIndex) => (
             <div key={typeIndex}>
               <h2
@@ -102,6 +143,7 @@ const BurgerIngredients: FC = () => {
                 {tabsGroup[type].map((item: TIngredients) => (
                   <Cart
                     key={item._id}
+                    itemsRef={itemsRef}
                     ingredient={item}
                     count={
                       countData[item._id] === undefined

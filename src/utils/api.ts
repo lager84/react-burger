@@ -10,7 +10,7 @@ const API_REGISTER = "/auth/register";
 const API_FORGOT_PASSWORD = "/password-reset";
 const API_RESET_PASSWORD = "/password-reset/reset";
 
-const request = <T>(url: string, options?: any) => {
+const request = <T>(url: string, options?: RequestInit) => {
   return fetch(url, options).then(checkResponse<T>);
 };
 
