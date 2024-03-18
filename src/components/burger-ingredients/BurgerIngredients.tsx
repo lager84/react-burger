@@ -77,23 +77,6 @@ const BurgerIngredients: FC = () => {
     headersTabs[value].current?.scrollIntoView({ behavior: "smooth" });
   }
 
-  function handleScroll(e: React.UIEvent<HTMLDivElement>) {
-    const pos = e.currentTarget ? e.currentTarget.scrollTop : 0;
-    const distance = [];
-    for (let h of Object.values(headersTabs)) {
-      if (h.current) {
-        const hPos = h.current.offsetTop;
-        distance.push(Math.abs(pos - hPos));
-      }
-    }
-    const min = Math.min(...distance);
-    const minIndex = distance.indexOf(min);
-    const newTab = Object.keys(headersTabs)[minIndex];
-
-    if (tabs !== newTab) {
-      dispatch({ type: SET_TAB, tab: newTab });
-    }
-  }
 
   const countData = useMemo(() => {
     const res: Record<string, number> = {};
