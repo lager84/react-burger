@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/AppHeader";
 import { SET_DISP_INGREDIENT } from "../../services/actions/disp-ingredients";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks/redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
   MainPage,

@@ -3,12 +3,12 @@ import styles from '../burger-constructor/burgerConstructor.module.css'
 import { ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BUN, SAUCE, MAIN } from '../../utils/ingrediebtsName'
 import Order from '../order/Order';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { SET_BUN, SET_SUM, DELETE_INGREDIENT,addIngridient } from '../../services/actions/burger-constructor';
 import { getBun, getConstructorIngredients, getConstructorIngredientsSum } from '../../services/selectors';
 import { useDrop } from 'react-dnd';
 import BurgerConstructorItems from '../burger-constructor-items/BurgerConstructorItems';
-import { TBurgerConstructor } from '../../utils/type';
+import { TBurgerConstructor, TIngredients } from '../../utils/type';
 
 
 
@@ -25,21 +25,21 @@ function BurgerConstructor() {
   
 
 
-  const [, dropBunUp] = useDrop({
+  const [, dropBunUp] = useDrop<TIngredients , unknown>({
     accept: BUN,
     drop(item) {
       dispatch({ type: SET_BUN, item: item });
     }
   });
 
-  const [, dropBunDown] = useDrop({
+  const [, dropBunDown] = useDrop<TIngredients, unknown>({
     accept: BUN,
     drop(item) {
       dispatch({ type: SET_BUN, item: item });
     }
   });
 
-  const [, dropIngredient] = useDrop({
+  const [, dropIngredient] = useDrop<TIngredients, unknown>({
     accept: [SAUCE, MAIN],
     drop(item) {
       dispatch(addIngridient(item));

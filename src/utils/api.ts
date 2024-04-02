@@ -55,17 +55,19 @@ type TRefrashToken = TServerResponse<{
   refreshToken: string;
 }>;
 
-function requestWithRefreshToken(url: string, options: any) {
-  return request<TRefrashToken>(url, options).catch((err) => {
+export const  requestWithRefreshToken = <T>(url: string, options: any) =>{
+   request<TRefrashToken>(url, options)
+  .catch((err) => {
     if (err.message === "jwt expired") {
-      return refreshToken().then((refreshData) => {
+      return refreshToken()
+      .then((refreshData) => {
         if (!refreshData.success) {
           return Promise.reject(refreshData);
         }
         localStorage.setItem("refreshToken", refreshData.refreshToken);
         setCookie("accessToken", refreshData.accessToken);
         options.headers.authorization = refreshData.accessToken;
-        return request(url, options);
+        return request<T>(url, options);
       });
     } else {
       return Promise.reject(err);
@@ -77,7 +79,8 @@ export type TRegisterUser = TServerResponse<{
   name: string;
   email: string;
   password: string;
-}>;
+  
+}> & TRefrashToken;
 
 export function registerUser(user: TRegisterUser) {
   return request<TRegisterUser>(`${BASE_URL}${API_REGISTER}`, {
@@ -90,9 +93,14 @@ export function registerUser(user: TRegisterUser) {
 }
 
 export type TLoginUser = TServerResponse<{
+  name: string
   email: string;
   password: string;
+  accessToken: string;
+  refreshToken: string;
 }>;
+
+
 
 export function loginUser(user: TLoginUser) {
   return request<TLoginUser>(`${BASE_URL}${API_LOGIN}`, {

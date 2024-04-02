@@ -4,7 +4,7 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks/redux";
 import { useDrag } from "react-dnd";
 import { SET_DISP_INGREDIENT } from "../../services/actions/disp-ingredients";
 import { useLocation, useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/redux";
 import { useNavigate } from "react-router-dom";
 import { useFormCallback } from "../../utils/use-form-callback";
 import { getAuth } from "../../services/selectors";
@@ -61,7 +61,7 @@ function ProfileEdit() {
   useEffect(() => {
     if (requestError) {
       alert(`[Профиль сохранение] ${requestError}`);
-      dispatch({ type: AUTH_CLEAR_ERRORS });
+      dispatch({ type: AUTH_CLEAR_ERRORS , message:"" });
     } else {
       setState({ name: user.name, email: user.email, password: "" });
     }

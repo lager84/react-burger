@@ -1,5 +1,5 @@
 import { useMemo, useEffect , useCallback, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 //import styles from '../order/order.module.css'
 import Modal from '../modal/Modal'
 import OrderDetails from '../order-details/OrderDetails'
@@ -78,7 +78,7 @@ const  Order = () => {
             </Button>
             {orderNumber &&
                 <Modal btnClose={hideOrder} title=''>
-                    <OrderDetails orderNumber={orderNumber.order.number} />
+                    <OrderDetails orderNumber={orderNumber} />
                 </Modal>}
         </div>
 

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/redux";
 import styles from "../burger-ingredients-tab/burgerIngredientsTab.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { SET_TAB } from "../../services/actions/tabs-info";

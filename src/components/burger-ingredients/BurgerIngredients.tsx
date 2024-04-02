@@ -1,7 +1,7 @@
 import { useMemo, useRef, FC, useState, useCallback, useEffect } from "react";
 import styles from "../burger-ingredients/burgerIngredients.module.css";
 import { getData, getDispIngedients } from "../../services/selectors";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/redux";
 import { BUN, SAUCE, MAIN, names } from "../../utils/ingrediebtsName";
 import BurgerIngredientsTab from "../burger-ingredients-tab/BurgerIngredientsTab";
 import {
@@ -62,9 +62,9 @@ const BurgerIngredients: FC = () => {
 
   const tabsGroup = useMemo(() => {
     let fdate: Record<string, Array<TIngredients>> = {};
-    fdate[BUN] = data.filter((i: TIngredients) => i.type === BUN);
-    fdate[SAUCE] = data.filter((i: TIngredients) => i.type === SAUCE);
-    fdate[MAIN] = data.filter((i: TIngredients) => i.type === MAIN);
+    fdate[BUN] = data.data.filter((i: TIngredients) => i.type === BUN);
+    fdate[SAUCE] = data.data.filter((i: TIngredients) => i.type === SAUCE);
+    fdate[MAIN] = data.data.filter((i: TIngredients) => i.type === MAIN);
     return fdate;
   }, [data]);
 
@@ -101,7 +101,7 @@ const BurgerIngredients: FC = () => {
   }
 
   useEffect(() => {
-    const topCategory = data?.find(
+    const topCategory = data.data?.find(
       (ingredient: TIngredients) => ingredient._id === topId
     )?.type;
     if (topCategory) setCurrentTab(topCategory);
