@@ -15,6 +15,8 @@ import {
   ResetPassword,
   ForgotPassword,
   NotFound404,
+  FeedPage, 
+  OrderPage
 } from "../../pages";
 import {
   URL_ROOT,
@@ -26,11 +28,13 @@ import {
   URL_PROFILE,
   URL_PROFILE_ORDERS,
   URL_ANY,
+  URL_FEED
 } from "../../utils/routes";
 import { authGetUserAction } from "../../services/actions/auth";
 import ProtectedRoute from "../protected-route";
 import { getCookie } from "../../utils/cookie";
 import { loadApiIngredients } from "../../services/actions/load-api-ingredients";
+
 
 function App() {
   const accToken = getCookie("accessToken");
@@ -60,6 +64,8 @@ function App() {
       <div className={styles.main}>
         <Routes location={stateLocation || location}>
           <Route path={URL_ROOT} element={<MainPage />} />
+          <Route path={URL_FEED} element={<FeedPage />} />
+          <Route path={`${URL_FEED}/:id`} element={<OrderPage />} />
           <Route
             path={URL_LOGIN}
             element={<ProtectedRoute onlyUnAuth={true} element={<Login />} />}
@@ -88,7 +94,8 @@ function App() {
             element={<ProtectedRoute element={<Profile />} />}
           >
             <Route index element={<ProfileEdit />} />
-            <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} />
+            {/* <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} /> */}
+            <Route path={URL_PROFILE_ORDERS} element={<OrderPage />} />
             <Route path={URL_ANY} element={<NotFound404 />} />
           </Route>
           <Route path={URL_ANY} element={<NotFound404 />} />

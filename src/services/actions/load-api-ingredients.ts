@@ -26,7 +26,7 @@ export function loadApiIngredients() {
         dispatch({ type: GET_DATA });
         getIngredients()
             .then(data => {
-                dispatch({ type: GET_FEED_SUCCESS, data: data });
+                dispatch({ type: GET_FEED_SUCCESS, data: data.data });
             })
             .catch(error => {
                 dispatch({ type: GET_FEED_FAILED, });

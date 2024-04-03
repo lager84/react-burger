@@ -1,3 +1,4 @@
+import Order from '../../components/order/Order';
 import { postOrder } from '../../utils/api';
 import { AppDispatch, TBurgerConstructor, TIngredients } from '../../utils/type';
 
@@ -24,7 +25,7 @@ export interface IClearOrderAction {
     type: typeof CLEAR_ORDER;
 }
 
-export type TCreateOrderActions = IAddOrderStartAction | IAddOrderSuccessAction | IAddOrderErrorAction | 
+export type TCreateOrderActions = IAddOrderStartAction | IAddOrderSuccessAction | IAddOrderErrorAction |
     IClearOrderAction;
 
 export function addOrder(ingredients:Array<TBurgerConstructor>) {
@@ -32,7 +33,7 @@ export function addOrder(ingredients:Array<TBurgerConstructor>) {
         dispatch({ type: ADD_ORDER_START });
         postOrder(ingredients)
             .then(data => {
-                dispatch({ type: ADD_ORDER_SUCCESS, orderNumber: data.data.orderNumber });
+                dispatch({ type: ADD_ORDER_SUCCESS, orderNumber:data.order.number });
             })
             .catch(err => {
                 dispatch({ type: ADD_ORDER_ERROR });

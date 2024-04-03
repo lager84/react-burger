@@ -10,29 +10,23 @@ import { useDrop } from 'react-dnd';
 import BurgerConstructorItems from '../burger-constructor-items/BurgerConstructorItems';
 import { TBurgerConstructor, TIngredients } from '../../utils/type';
 
-
-
-
-
-
-
 function BurgerConstructor() {
 
   const dispatch = useDispatch();
   const bun = useSelector(getBun);
   const ingredients = useSelector(getConstructorIngredients)
   const sum = useSelector(getConstructorIngredientsSum)
-  
 
 
-  const [, dropBunUp] = useDrop<TIngredients , unknown>({
+
+  const [, dropBunUp] = useDrop<TBurgerConstructor , unknown>({
     accept: BUN,
     drop(item) {
       dispatch({ type: SET_BUN, item: item });
     }
   });
 
-  const [, dropBunDown] = useDrop<TIngredients, unknown>({
+  const [, dropBunDown] = useDrop<TBurgerConstructor, unknown>({
     accept: BUN,
     drop(item) {
       dispatch({ type: SET_BUN, item: item });

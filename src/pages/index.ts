@@ -8,6 +8,8 @@ import NotFound404 from "./404/404";
 import ForgotPassword from "./forgot-password/forgot-password";
 import ResetPassword from "./reset-password/reset-password";
 import IngredientPage from "./ingredients/ingredients";
+import FeedPage from './feed/feed';
+import OrderPage from './order/order';
 
 export {
   Login,
@@ -20,4 +22,6 @@ export {
   ForgotPassword,
   ResetPassword,
   IngredientPage,
+  FeedPage,
+  OrderPage
 };

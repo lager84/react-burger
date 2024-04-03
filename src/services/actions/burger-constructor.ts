@@ -11,13 +11,13 @@ export const DELETE_INGREDIENT_ALL:'DELETE_INGREDIENT_ALL' = "DELETE_INGREDIENT_
 
 export interface SetBunAction {
     type: typeof SET_BUN;
-    item: TIngredients;
+    item: TBurgerConstructor;
 }
 
 export interface AddIngredientAction {
     type: typeof ADD_INGREDIENT;
     payload: TBurgerConstructor;
-    
+
 }
 
 export interface DeleteIngredientAction {
@@ -39,7 +39,7 @@ export interface SetSumAction {
     sum: number;
 }
 
-export type TBurgerConstructorActions = SetBunAction | AddIngredientAction | DeleteIngredientAction | 
+export type TBurgerConstructorActions = SetBunAction | AddIngredientAction | DeleteIngredientAction |
     MoveIngredientAction | SetSumAction | DeleteIngredientAllAction;
 
 

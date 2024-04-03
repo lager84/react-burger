@@ -1,6 +1,6 @@
 import { BASE_URL } from "./domain";
 import { setCookie, getCookie } from "./cookie";
-import { TBurgerConstructor } from "./type";
+import { TBurgerConstructor, TOrder} from "./type";
 
 const API_LOGIN = "/auth/login";
 const API_LOGOUT = "/auth/logout";
@@ -9,6 +9,7 @@ const API_USER = "/auth/user";
 const API_REGISTER = "/auth/register";
 const API_FORGOT_PASSWORD = "/password-reset";
 const API_RESET_PASSWORD = "/password-reset/reset";
+export const WS_URL = "wss://norma.nomoreparties.space";
 
 const request = <T>(url: string, options?: RequestInit) => {
   return fetch(url, options).then(checkResponse<T>);
@@ -26,16 +27,25 @@ type TIngredientsResponse = TServerResponse<{
   data: TBurgerConstructor[];
 }>;
 
+type TOrderResponse = TServerResponse<{
+  order: {number:number};
+}>;
+
 export function getIngredients() {
   return request<TIngredientsResponse>(`${BASE_URL}/ingredients`);
 }
 
 export function postOrder(ingredients: Array<TBurgerConstructor>) {
-  return request<TIngredientsResponse>(`${BASE_URL}/orders`, {
+  // TODO вот тут у тебя неправильный тип стоит, эндпоинт этот не возвращает ингредиенты
+  return request<TOrderResponse>(`${BASE_URL}/orders`, {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify({ ingredients: ingredients.map((item) => item._id) }),
   });
+}
+
+export function orderGet(orderNum?: string) {
+  return request<TOrder>(`${BASE_URL}/orders/${orderNum}`);
 }
 
 export function refreshToken() {
@@ -55,8 +65,8 @@ type TRefrashToken = TServerResponse<{
   refreshToken: string;
 }>;
 
-export const  requestWithRefreshToken = <T>(url: string, options: any) =>{
-   request<TRefrashToken>(url, options)
+export const  requestWithRefreshToken = <T>(url: string, options: any) => {
+   return request<T>(url, options)
   .catch((err) => {
     if (err.message === "jwt expired") {
       return refreshToken()
@@ -79,7 +89,7 @@ export type TRegisterUser = TServerResponse<{
   name: string;
   email: string;
   password: string;
-  
+
 }> & TRefrashToken;
 
 export function registerUser(user: TRegisterUser) {
@@ -155,8 +165,11 @@ export function resetPassword(form: TResetPassword) {
   });
 }
 
+// TODO тут и ниже нужно передать тип, который вернет getUser. Сейчас он ничего не возвращает и естественно нечего из него доставать.
+// вот так return requestWithRefreshToken<Type> я показывал это на вебинаре
+
 export function getUser() {
-  return requestWithRefreshToken(`${BASE_URL}${API_USER}`, {
+  return requestWithRefreshToken<TLoginUser>(`${BASE_URL}${API_USER}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -172,7 +185,7 @@ export type TPatchUser = TServerResponse<{
 }>;
 
 export function patchUser(user: TPatchUser) {
-  return requestWithRefreshToken(`${BASE_URL}${API_USER}`, {
+  return requestWithRefreshToken<TLoginUser>(`${BASE_URL}${API_USER}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

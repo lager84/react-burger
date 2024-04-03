@@ -162,7 +162,7 @@ export interface IAuthClearErrorsAction {
   readonly message: string;
 }
 
-export type TAuthActions = 
+export type TAuthActions =
   IAuthRegisterStartAction  | IAuthRegisterSuccessAction | IAuthRegisterErrorAction |
   IAuthLoginStartAction  | IAuthLoginSuccessAction | IAuthLoginErrorAction |
   IAuthLogoutStartAction  | IAuthLogoutSuccessAction | IAuthLogoutErrorAction |
@@ -206,26 +206,7 @@ export function authLogoutAction() {
   };
 }
 
-export const  authTokenAction = () => (dispatch: AppDispatch) => {
-    dispatch({ type: AUTH_TOKEN_START });
-   return refreshToken()
-      .then(result => {
-        const accessToken = result.accessToken.split("Bearer ")[1];
-        const refreshToken = result.refreshToken;
-        if (accessToken) {
-          setCookie("accessToken", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
-        }
-
-        dispatch({ type: AUTH_TOKEN_SUCCESS, user:result  });
-      })
-      .catch(err => {
-        dispatch({ type: AUTH_TOKEN_ERROR, message: err.message });
-      });
-  
-}
-
-export function authRegisterAction(form: TRegisterUser, callback) {
+export function authRegisterAction(form: TRegisterUser, callback: () => void) {
   return function (dispatch: AppDispatch) {
     dispatch({ type: AUTH_REGISTER_START });
     registerUser(form)
@@ -246,7 +227,7 @@ export function authRegisterAction(form: TRegisterUser, callback) {
   };
 }
 
-export function authForgotPasswordAction(form: TForgotPassword, callback) {
+export function authForgotPasswordAction(form: TForgotPassword, callback: () => void) {
   return function (dispatch: AppDispatch) {
     dispatch({ type: AUTH_FORGOT_PASSWORD_START });
     forgotPassword(form)
@@ -260,7 +241,7 @@ export function authForgotPasswordAction(form: TForgotPassword, callback) {
   };
 }
 
-export function authResetPasswordAction(form: TResetPassword, callback) {
+export function authResetPasswordAction(form: TResetPassword, callback: () => void) {
   return function (dispatch: AppDispatch) {
     dispatch({ type: AUTH_RESET_PASSWORD_START });
     resetPassword(form)
@@ -279,7 +260,7 @@ export function authGetUserAction() {
     dispatch({ type: AUTH_GET_USER_START });
     getUser()
       .then((result) => {
-        dispatch({ type: AUTH_GET_USER_SUCCESS, user: result.user });
+        dispatch({ type: AUTH_GET_USER_SUCCESS, user: result });
       })
       .catch((err) => {
         dispatch({ type: AUTH_GET_USER_ERROR, message: err.message });
@@ -292,7 +273,7 @@ export function authPatchUserAction(form: TPatchUser) {
     dispatch({ type: AUTH_PATCH_USER_START });
     patchUser(form)
       .then((result) => {
-        dispatch({ type: AUTH_PATCH_USER_SUCCESS, user: result.user });
+        dispatch({ type: AUTH_PATCH_USER_SUCCESS, user: result });
       })
       .catch((err) => {
         dispatch({ type: AUTH_PATCH_USER_ERROR, message: err.message });

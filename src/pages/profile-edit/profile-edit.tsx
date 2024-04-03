@@ -45,14 +45,15 @@ function ProfileEdit() {
   );
 
   const changeValue =
-    user.name !== "" &&
-    (state.name !== user.name ||
+    user?.name !== "" &&
+    (state.name !== user?.name ||
       state.email !== user.email ||
       state.password.length > 0);
 
   const onReset = useCallback(
     (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      if (!user) return;
       setState({ name: user.name, email: user.email, password: "" });
     },
     [setState, user]
@@ -62,7 +63,7 @@ function ProfileEdit() {
     if (requestError) {
       alert(`[Профиль сохранение] ${requestError}`);
       dispatch({ type: AUTH_CLEAR_ERRORS , message:"" });
-    } else {
+    } else if (user) {
       setState({ name: user.name, email: user.email, password: "" });
     }
   }, [dispatch, setState, user, navigate, requestError, requestSuccess]);
