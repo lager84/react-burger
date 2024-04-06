@@ -39,7 +39,9 @@ export function postOrder(ingredients: Array<TBurgerConstructor>) {
   // TODO вот тут у тебя неправильный тип стоит, эндпоинт этот не возвращает ингредиенты
   return request<TOrderResponse>(`${BASE_URL}/orders`, {
     method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
+    headers: { "Content-Type": "application/json;charset=utf-8" ,
+    Authorization: "Bearer " + getCookie("accessToken"),
+     },
     body: JSON.stringify({ ingredients: ingredients.map((item) => item._id) }),
   });
 }

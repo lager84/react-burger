@@ -103,8 +103,7 @@ function App() {
             element={<ProtectedRoute element={<Profile />} />}
           >
             <Route index element={<ProfileEdit />} />
-            {/* <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} /> */}
-            <Route path={URL_PROFILE_ORDERS} element={<OrderPage />} />
+            <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} />
             <Route path={URL_ANY} element={<NotFound404 />} />
           </Route>
           <Route path={URL_ANY} element={<NotFound404 />} />
