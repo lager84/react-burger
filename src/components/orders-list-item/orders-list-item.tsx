@@ -57,7 +57,7 @@ const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
         <div className='m-6'>
           <div className={styles.order_header}>
             <p className='text text_type_digits-default'>#{order.number}</p>
-            <FormattedDate date={new Date(order.createdAt)} className='text text_type_main-default text_color_inactive' />
+            <p className={styles.date_order}><FormattedDate date={new Date(order.createdAt)} className='text text_type_main-default text_color_inactive' /></p>
           </div>
         </div>
         <p className={`${styles.title_order} text text_type_main-medium`}>
@@ -71,16 +71,13 @@ const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
         <div className={styles.filling}>
           <div className={styles.images_selection}>
             {firstSixItems && firstSixItems.map((item: TIngredients | undefined, i: number) => {
-              //let zIndex = countItemsMax - i;
-              let right = -2 * 10;
               let countHide = order.ingredients.length - countItemsMax;
               return (
                 <li
                   key={i}
-                  style={{ /*zIndex: zIndex,*/ marginRight: right }}
+                  
                   className={styles.image_fill}>
-                  <img
-                      style={{ opacity: countItemsMax === (i + 1) && countHide > 0 ? '0.4' : '1' }}
+                  <img                   
                       src={item!.image_mobile}
                       alt={item!.name}
                       className={styles.image_position} />

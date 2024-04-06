@@ -27,7 +27,7 @@ export function getOrderAction(orderNum?: string) {
         dispatch({ type: GET_ORDER_START });
         orderGet(orderNum)
         .then(result => {
-            dispatch({ type: GET_ORDER_SUCCESS, order: result });
+            dispatch({ type: GET_ORDER_SUCCESS, order: result.orders[0] });
         })
         .catch(err => {
             dispatch({ type: GET_ORDER_ERROR, message: err.message });

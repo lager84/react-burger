@@ -13,7 +13,7 @@ function ProfileOrders() {
     const dispatch = useDispatch();
     const { connected, error, message } = useSelector(getOrdersUser);
 
-    //заказы пользователя почему-то приходят в прямом порядке
+   
     const messageSorted: TOrdersList | null = useMemo(() => {
         if (!message) {
             return null;

@@ -38,7 +38,7 @@ export type TIngredientQty = TIngredients & {
 }
 
 
-export type TOrder = {
+export type  TOrder = { 
   ingredients: Array<string>;
   _id: string;
   status: string;

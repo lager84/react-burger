@@ -3,6 +3,7 @@
     color: var(--text-primary-color);
     background-color: var(--background);
     border-radius: 40px;
+    margin: 8px;
 }
 
 .order_header {
@@ -17,7 +18,8 @@
     line-height: 30px;
     padding: 0px 0px 12px 24px;
     margin: 0;
-    z-index: 123123;
+    z-index: 1;
+    
 }
 
 .time_order {
@@ -29,6 +31,10 @@
 .number_order {
     max-width: 20vh;
     line-height: 24px;
+}
+
+.date_order{
+    margin-left: 310px;
 }
 
 .status_order {
@@ -91,8 +97,9 @@ li {
     gap: 8px;
     height: 64px;
     max-width: 25vw;
-    padding: 0px;
+    padding: 50px;
     text-decoration: none;
+    
 }
 
 .count_hidden {

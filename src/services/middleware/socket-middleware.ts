@@ -1,28 +1,28 @@
-import type { Middleware, MiddlewareAPI } from 'redux';
-import { refreshToken } from '../../utils/api';
-import { getCookie } from '../../utils/cookie';
-import { getEventMessage } from '../../utils/message';
+import type { Middleware, MiddlewareAPI } from "redux";
+import { refreshToken } from "../../utils/api";
+import { getCookie } from "../../utils/cookie";
+import { getEventMessage } from "../../utils/message";
 
-import type { AppDispatch, RootState, wsActionsTypes } from '../../utils/type';
+import type { AppDispatch, RootState, wsActionsTypes } from "../../utils/type";
 
 export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
     let timerWsReconnect = 0;
     let isWsConnected = false;
-    let url = '';
+    let url = "";
 
-    return next => (action: any) => {
+    return (next) => (action: any) => {
       const { dispatch } = store;
 
       if (action.type === wsActions.onStart) {
         url = action.url;
         if (action.addToken) {
-          url += `?token=${getCookie('accessToken')}`;
+          url += `?token=${getCookie("accessToken")}`;
         }
-        
+
         let cnt = 0;
-        //проблемы с Firefox, иногда не может соединиться
+        // Firefox
         while (cnt < 10) {
           try {
             socket = new WebSocket(url);
@@ -31,7 +31,7 @@ export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
             cnt++;
           }
         }
-        
+
         isWsConnected = true;
         window.clearTimeout(timerWsReconnect);
         dispatch({ type: wsActions.onSuccess });
@@ -41,24 +41,27 @@ export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
           dispatch({ type: wsActions.onOpen });
         };
 
-        socket.onclose = event => {
+        socket.onclose = (event) => {
           if (event.code !== 1000) {
-            dispatch({ type: wsActions.onError, error: getEventMessage(event) });
+            dispatch({
+              type: wsActions.onError,
+              error: getEventMessage(event),
+            });
             socket?.close();
           }
           if (isWsConnected) {
             dispatch({ type: wsActions.onClosed });
             timerWsReconnect = window.setTimeout(() => {
               dispatch({ type: wsActions.onStart, url: url });
-            }, 3000)
+            }, 3000);
           }
         };
 
-        socket.onmessage = event => {
+        socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           if (!parsedData?.success) {
-            if (parsedData?.message === 'Invalid or missing token') {
+            if (parsedData?.message === "Invalid or missing token") {
               refreshToken();
             }
             dispatch({ type: wsActions.onError, error: parsedData?.message });
@@ -68,7 +71,7 @@ export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
           }
         };
 
-        socket.onerror = event => {
+        socket.onerror = (event) => {
           dispatch({ type: wsActions.onError, error: getEventMessage(event) });
         };
 

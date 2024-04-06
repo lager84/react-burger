@@ -183,7 +183,7 @@ export const authLoginAction = (form: TLoginUser) => (dispatch: AppDispatch) =>{
           localStorage.setItem("refreshToken", refreshToken);
         }
 
-        dispatch({ type: AUTH_LOGIN_SUCCESS, user: result});
+        dispatch({ type: AUTH_LOGIN_SUCCESS, user: result.user});
       })
       .catch((err) => {
         dispatch({ type: AUTH_LOGIN_ERROR, message: err.message });
@@ -260,7 +260,7 @@ export function authGetUserAction() {
     dispatch({ type: AUTH_GET_USER_START });
     getUser()
       .then((result) => {
-        dispatch({ type: AUTH_GET_USER_SUCCESS, user: result });
+        dispatch({ type: AUTH_GET_USER_SUCCESS, user: result.user });
       })
       .catch((err) => {
         dispatch({ type: AUTH_GET_USER_ERROR, message: err.message });

@@ -1,6 +1,6 @@
 import { BASE_URL } from "./domain";
 import { setCookie, getCookie } from "./cookie";
-import { TBurgerConstructor, TOrder} from "./type";
+import { TBurgerConstructor, TOrder, TOrdersList} from "./type";
 
 const API_LOGIN = "/auth/login";
 const API_LOGOUT = "/auth/logout";
@@ -45,7 +45,7 @@ export function postOrder(ingredients: Array<TBurgerConstructor>) {
 }
 
 export function orderGet(orderNum?: string) {
-  return request<TOrder>(`${BASE_URL}/orders/${orderNum}`);
+  return request<TOrdersList>(`${BASE_URL}/orders/${orderNum}`);
 }
 
 export function refreshToken() {
@@ -102,18 +102,24 @@ export function registerUser(user: TRegisterUser) {
   });
 }
 
-export type TLoginUser = TServerResponse<{
+export type TLoginUser = {
   name: string
   email: string;
   password: string;
   accessToken: string;
   refreshToken: string;
+}
+
+export type TLoginUserResponse = TServerResponse<{
+  accessToken: string;
+  refreshToken: string;
+  user: TLoginUser
 }>;
 
 
 
 export function loginUser(user: TLoginUser) {
-  return request<TLoginUser>(`${BASE_URL}${API_LOGIN}`, {
+  return request<TLoginUserResponse>(`${BASE_URL}${API_LOGIN}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -169,7 +175,7 @@ export function resetPassword(form: TResetPassword) {
 // вот так return requestWithRefreshToken<Type> я показывал это на вебинаре
 
 export function getUser() {
-  return requestWithRefreshToken<TLoginUser>(`${BASE_URL}${API_USER}`, {
+  return requestWithRefreshToken<TLoginUserResponse>(`${BASE_URL}${API_USER}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

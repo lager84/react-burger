@@ -15,7 +15,7 @@ type TGetOrderState = {
 const initialState : TGetOrderState = {
     requestStart: false,
     requestError: null,
-    order: null
+    order:null
 }
 
 export function getOrderReducer(state = initialState, action: TGetOrderActions): TGetOrderState {
@@ -23,9 +23,9 @@ export function getOrderReducer(state = initialState, action: TGetOrderActions):
         case GET_ORDER_START:
             return { ...state, requestStart: true, requestError: null };
         case GET_ORDER_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, order: action.order };
+            return { ...state, requestStart: false, requestError: null, order:action.order };
         case GET_ORDER_ERROR:
-            return { ...state, requestStart: false, requestError: action.message, order: null };
+            return { ...state, requestStart: false, requestError: action.message, order: null};
             
         default:
             return state;
