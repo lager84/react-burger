@@ -1,6 +1,6 @@
 import { BASE_URL } from "./domain";
 import { setCookie, getCookie } from "./cookie";
-import { TBurgerConstructor, TOrder, TOrdersList} from "./type";
+import { TBurgerConstructor, TOrdersList} from "./type";
 
 const API_LOGIN = "/auth/login";
 const API_LOGOUT = "/auth/logout";
@@ -36,7 +36,6 @@ export function getIngredients() {
 }
 
 export function postOrder(ingredients: Array<TBurgerConstructor>) {
-  // TODO вот тут у тебя неправильный тип стоит, эндпоинт этот не возвращает ингредиенты
   return request<TOrderResponse>(`${BASE_URL}/orders`, {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" ,
@@ -173,8 +172,7 @@ export function resetPassword(form: TResetPassword) {
   });
 }
 
-// TODO тут и ниже нужно передать тип, который вернет getUser. Сейчас он ничего не возвращает и естественно нечего из него доставать.
-// вот так return requestWithRefreshToken<Type> я показывал это на вебинаре
+
 
 export function getUser() {
   return requestWithRefreshToken<TLoginUserResponse>(`${BASE_URL}${API_USER}`, {
