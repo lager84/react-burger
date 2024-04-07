@@ -2,6 +2,6 @@
     display: flex;
     margin-right: 8px;
     gap: 8px;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
 }

@@ -76,10 +76,15 @@ li {
     border: 2px solid transparent;
     height: 64px;
     width: 64px;
+    margin-left: -20px;
+   
+    
 }
 
 .image_position {
     position: relative;
+    
+
 }
 
 .images_selection {
@@ -87,6 +92,8 @@ li {
     flex-direction: row;
     background: #1C1C21;
     height: 64px;
+  
+    
 }
 
 .price {
@@ -103,8 +110,11 @@ li {
 }
 
 .count_hidden {
-    left: 40%;
+    left: 30%;
     top: 30%;
     position: absolute;
-    line-height: 24px;
+    line-height: 34px;
+    font-size: 25px;
+    font-weight: bold;
 }
+
