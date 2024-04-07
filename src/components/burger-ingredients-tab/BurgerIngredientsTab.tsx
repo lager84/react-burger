@@ -21,7 +21,6 @@ const BurgerIngredientsTab: FC<TProps> = ({ tabChange, topCategory }) => {
     setCurrent(topCategory);
   }
 
-  console.log(current);
 
   useEffect(() => {
     setCurrent(topCategory);

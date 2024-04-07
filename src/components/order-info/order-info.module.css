@@ -19,8 +19,8 @@
     height: 320px;
     overflow: auto;
     width: 640px;
-    scrollbar-color: #8585AD #2F2F37;
-    scrollbar-width: thin;
+    
+   
 }
 
 .fill_order::-webkit-scrollbar {

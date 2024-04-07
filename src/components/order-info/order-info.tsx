@@ -22,7 +22,7 @@ const OrderInfo: FC<TProps> = ({ item }) => {
 
   const { order } = useSelector(numberGetOrder);
 
-  console.log(order)
+
   const { data: ingredients } = useSelector(getData);
 
   const orderIngredients = useMemo(

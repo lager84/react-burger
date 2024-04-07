@@ -12,6 +12,7 @@ import Loader from '../../components/loader/Loader';
 function FeedPage() {
     const dispatch = useDispatch();
     const { connected, error, message } = useSelector(getOrdersAll);
+    document.body.style.overflow = "hidden";
 
     useEffect(() => {
         dispatch({ type: ORDERS_ALL_START, url: `${WS_URL}/orders/all` });

@@ -6,10 +6,9 @@ import styles from './orders-status.module.css';
 type TProp = {
     data: TOrdersList
 };
+const countRowInColumn = 10;
 
 const OrdersStatus: FC<TProp> = ({ data }) => {
-
-    const countRowInColumn = 10;
 
     const location = useLocation();
   
