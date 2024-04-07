@@ -1,6 +1,5 @@
-import Order from '../../components/order/Order';
 import { postOrder } from '../../utils/api';
-import { AppDispatch, TBurgerConstructor, TIngredients } from '../../utils/type';
+import { AppDispatch, TBurgerConstructor } from '../../utils/type';
 
 export const ADD_ORDER_START:'ADD_ORDER_START' = "ADD_ORDER_START";
 export const ADD_ORDER_SUCCESS:'ADD_ORDER_SUCCESS' = "ADD_ORDER_SUCCESS";

@@ -7,7 +7,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../app-header/appheader.module.css";
-import { URL_PROFILE, URL_ROOT, URL_LENTA, URL_FEED } from "../../utils/routes";
+import { URL_PROFILE, URL_ROOT, URL_FEED } from "../../utils/routes";
 import HeaderIcon from "../header-icon/HeaderIcon";
 import { Link } from "react-router-dom";
 import { getAuth } from "../../services/selectors";

@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "../../hooks/redux";
+import { useDispatch } from "../../hooks/redux";
 import styles from "../burger-ingredients-tab/burgerIngredientsTab.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { SET_TAB } from "../../services/actions/tabs-info";
 import { BUN, SAUCE, MAIN, names } from "../../utils/ingrediebtsName";
-import { getTabsInfo } from "../../services/selectors";
 import { FC, useEffect, useState } from "react";
 
 type TProps = {

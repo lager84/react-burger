@@ -1,4 +1,4 @@
-import { useMemo, useEffect , useCallback, FC } from 'react';
+import { useMemo, useEffect , useCallback } from 'react';
 import { useDispatch, useSelector } from '../../hooks/redux';
 //import styles from '../order/order.module.css'
 import Modal from '../modal/Modal'
@@ -21,7 +21,7 @@ const  Order = () => {
 
     const dispatch = useDispatch();
 
-    const { userLoggedIn, requestStart } = useSelector(getAuth);
+    const { userLoggedIn} = useSelector(getAuth);
 
     const bun = useSelector(getBun);
     const ingredients = useSelector(getConstructorIngredients);
@@ -61,7 +61,7 @@ const  Order = () => {
         }
         dispatch(addOrder(orderIngredients) as any);
     }
-    }, [requestStart, userLoggedIn, navigate, ingredients, bun, dispatch]);
+    }, [ userLoggedIn, navigate, ingredients, bun, dispatch]);
 
     
 

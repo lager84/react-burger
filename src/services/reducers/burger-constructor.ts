@@ -1,4 +1,4 @@
-import { TIngredients, TBurgerConstructor } from '../../utils/type';
+import {TBurgerConstructor } from '../../utils/type';
 import {
     SET_BUN,
     ADD_INGREDIENT,

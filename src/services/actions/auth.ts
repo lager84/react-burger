@@ -2,7 +2,6 @@ import {
   registerUser,
   loginUser,
   logoutUser,
-  refreshToken,
   forgotPassword,
   resetPassword,
   getUser,

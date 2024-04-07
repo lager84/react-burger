@@ -7,9 +7,7 @@ import BurgerIngredientsTab from "../burger-ingredients-tab/BurgerIngredientsTab
 import {
   getBun,
   getConstructorIngredients,
-  getTabsInfo,
 } from "../../services/selectors";
-import { SET_TAB } from "../../services/actions/tabs-info";
 import { SET_DISP_INGREDIENT } from "../../services/actions/disp-ingredients";
 import Cart from "../cart/Cart";
 import Modal from "../modal/Modal";
@@ -51,7 +49,6 @@ const BurgerIngredients: FC = () => {
   const { data } = useSelector(getData);
   const bun = useSelector(getBun);
   const ingredients = useSelector(getConstructorIngredients);
-  const tabs = useSelector(getTabsInfo);
   const dispatch = useDispatch();
   const { listRef, itemsRef, onScroll, topId } = useTopId();
   const [currentTab, setCurrentTab] = useState("bun");
@@ -105,7 +102,7 @@ const BurgerIngredients: FC = () => {
       (ingredient: TIngredients) => ingredient._id === topId
     )?.type;
     if (topCategory) setCurrentTab(topCategory);
-  }, [topId]);
+  }, [data.data , topId]);
 
   return (
     <section className={styles.sectionsingredients}>
