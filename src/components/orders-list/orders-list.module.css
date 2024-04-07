@@ -1,7 +1,7 @@
 .div_root{
 margin-top: calc(var(--offset-base-size)* 4);
 overflow-y: scroll;
-max-height: 800px;
+max-height: 500px;
 }
 .div_root::-webkit-scrollbar {
     width: 8px;
