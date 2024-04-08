@@ -73,7 +73,7 @@ const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
             {firstSixItems && firstSixItems.map((item: TIngredients | undefined, i: number) => {
               let countHide = order.ingredients.length - countItemsMax;
               return (
-                <li
+                <div
                   key={i}
                   
                   className={styles.image_fill}>
@@ -84,14 +84,18 @@ const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
                   {countHide > 0 && i === (countItemsMax - 1) &&
                     <span className={`${styles.count_hidden} text text_type_main-default`}>+{countHide}</span>
                   }
-                </li>
+                </div>
               )
             })}
+            <div className={styles.price}>
+             <span className={`text text_type_digits-default`}>{orderAmount}</span>
+            <CurrencyIcon type="primary" />
+            </div>
           </div>
-          <div className={styles.price}>
+          {/* <div className={styles.price}>
             <span className={`text text_type_digits-default`}>{orderAmount}</span>
             <CurrencyIcon type="primary" />
-          </div>
+          </div> */}
         </div>
       </Link>
     );

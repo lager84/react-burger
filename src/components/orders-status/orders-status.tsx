@@ -6,7 +6,7 @@ import styles from './orders-status.module.css';
 type TProp = {
     data: TOrdersList
 };
-const countRowInColumn = 10;
+const countRowInColumn = 5;
 
 const OrdersStatus: FC<TProp> = ({ data }) => {
 
