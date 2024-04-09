@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormCallback } from "../../utils/use-form-callback";
 import { getAuth } from "../../services/selectors";
@@ -38,6 +38,8 @@ function Register() {
       name: "",
       email: "",
       password: "",
+      accessToken:"",
+      refreshToken:""
     },
     submitCallback
   );
@@ -46,7 +48,7 @@ function Register() {
 
   if (requestError) {
     alert(`[Регистрация] ${requestError}`);
-    dispatch({ type: AUTH_CLEAR_ERRORS });
+    dispatch({ type: AUTH_CLEAR_ERRORS , message:"" });
   }
 
   return (

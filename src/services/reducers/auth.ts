@@ -24,9 +24,20 @@ import {
   AUTH_PATCH_USER_SUCCESS,
   AUTH_PATCH_USER_ERROR,
   AUTH_CLEAR_ERRORS,
+  TAuthActions
 } from "../actions/auth";
+import { TLoginUser} from '../../utils/api';
 
-const initialState = {
+type TAuthState = {
+  requestStart: boolean;
+  requestError: string | null;
+  requestSuccess: boolean;
+  userLoggedIn: boolean;
+  user: TLoginUser | null;
+  forgotPassword: boolean;
+}
+
+const initialState:TAuthState = {
   requestStart: false,
   requestError: null,
   requestSuccess: false,
@@ -35,7 +46,7 @@ const initialState = {
   forgotPassword: false,
 };
 
-export function authReducer(state = initialState, action) {
+export function authReducer(state = initialState, action:TAuthActions): TAuthState {
   switch (action.type) {
     case AUTH_LOGIN_START:
       return {
@@ -195,7 +206,7 @@ export function authReducer(state = initialState, action) {
         requestStart: false,
         requestError: null,
         requestSuccess: true,
-        user: { name: action.user.name, email: action.user.email },
+        user: { name: action.user.name, email: action.user.email, accessToken: action.user.accessToken , password: action.user.password , refreshToken: action.user.refreshToken },
         userLoggedIn: true,
       };
     case AUTH_GET_USER_ERROR:

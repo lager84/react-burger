@@ -1,6 +1,6 @@
 import { useMemo, FC } from "react";
 import styles from "../ingredient-details/ingredient-details.module.css";
-import { useSelector} from "react-redux";
+import { useSelector} from "../../hooks/redux";
 import { useParams } from "react-router";
 import { getData } from "../../services/selectors";
 import { LOADING_DATA, ERROR_DATA } from "../../utils/message";
@@ -12,12 +12,12 @@ type TProps = {
 
 const IngredientDetails: FC<TProps> = ({ ingredientData }) => {
   const params = useParams();
-  const { data, dataLoading, dataHasErrors } = useSelector(getData);
+  const { data, loadData  , errorData } = useSelector(getData);
   let itemTrue = useMemo(() => {
     if (ingredientData) {
       return ingredientData;
-    } else if (params.id && data && data.length > 0) {
-      return data.find((i: TIngredients) => i._id === params.id);
+    } else if (params.id && data && data.data.length > 0) {
+      return data.data.find((i: TIngredients) => i._id === params.id);
     }
     return null;
   }, [ingredientData, params.id, data]);
@@ -52,7 +52,7 @@ const IngredientDetails: FC<TProps> = ({ ingredientData }) => {
       </ul>
     </div>
   ) : (
-    <p>{dataLoading ? LOADING_DATA : dataHasErrors ? ERROR_DATA : undefined}</p>
+    <p>{loadData ? LOADING_DATA : errorData  ? ERROR_DATA : undefined}</p>
   );
 };
 

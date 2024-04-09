@@ -1,20 +1,27 @@
+import {TBurgerConstructor } from '../../utils/type';
 import {
     SET_BUN,
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
     SET_SUM,
     MOVE_INGREDIENTS,
-    DELETE_INGREDIENT_ALL
+    DELETE_INGREDIENT_ALL,
+    TBurgerConstructorActions
 } from '../actions/burger-constructor';
 
+export type TBurgerConstructorState = {
+    bun: TBurgerConstructor | null;
+    ingredients: Array<TBurgerConstructor>;
+    sum: number;
+}
 
-const initialState = {
+const initialState:TBurgerConstructorState = {
     bun: null,
     ingredients: [],
     sum: 0
 }
 
-export function burgerConstructorReducer(state = initialState, action) {
+export function burgerConstructorReducer(state = initialState, action:TBurgerConstructorActions): TBurgerConstructorState {
     switch (action.type) {
         case SET_BUN:
             return { ...state, bun: action.item };

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom";
 import { URL_PROFILE_ORDERS } from "../../utils/routes";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks/redux";
 import { authLogoutAction } from "../../services/actions/auth";
 import styles from "./profile.module.css";
 

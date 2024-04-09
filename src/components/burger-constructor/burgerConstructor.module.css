@@ -29,14 +29,14 @@
     display: flex;
     margin-right: 16px;
     gap: 8px;
-    justify-content: end;
+    justify-content:flex-end;
     align-items: center;
 }
 
 .divTotal {
     display: flex;
     gap: 40px;
-    justify-content: end;
+    justify-content: flex-end;
     margin-top: 40px;
 }
 

@@ -8,4 +8,5 @@ export const URL_FORGOT_PASSWORD = "/forgot-password";
 export const URL_PROFILE = "/profile"
 export const URL_PROFILE_ORDERS = "orders";
 export const URL_PROFILE_LOGOUT = "logout";
+export const URL_FEED = "/feed";
 export const URL_ANY = "*";

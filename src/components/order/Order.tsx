@@ -1,5 +1,5 @@
-import { useMemo, useEffect , useCallback, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo, useEffect , useCallback } from 'react';
+import { useDispatch, useSelector } from '../../hooks/redux';
 //import styles from '../order/order.module.css'
 import Modal from '../modal/Modal'
 import OrderDetails from '../order-details/OrderDetails'
@@ -21,7 +21,7 @@ const  Order = () => {
 
     const dispatch = useDispatch();
 
-    const { userLoggedIn, requestStart } = useSelector(getAuth);
+    const { userLoggedIn} = useSelector(getAuth);
 
     const bun = useSelector(getBun);
     const ingredients = useSelector(getConstructorIngredients);
@@ -61,7 +61,7 @@ const  Order = () => {
         }
         dispatch(addOrder(orderIngredients) as any);
     }
-    }, [requestStart, userLoggedIn, navigate, ingredients, bun, dispatch]);
+    }, [ userLoggedIn, navigate, ingredients, bun, dispatch]);
 
     
 
@@ -78,7 +78,7 @@ const  Order = () => {
             </Button>
             {orderNumber &&
                 <Modal btnClose={hideOrder} title=''>
-                    <OrderDetails orderNumber={orderNumber.order.number} />
+                    <OrderDetails orderNumber={orderNumber} />
                 </Modal>}
         </div>
 

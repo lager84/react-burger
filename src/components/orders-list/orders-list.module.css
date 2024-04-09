@@ -1,0 +1,16 @@
+.div_root{
+margin-top: calc(var(--offset-base-size)* 4);
+overflow-y: scroll;
+max-height: 500px;
+}
+.div_root::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .div_root::-webkit-scrollbar-track {
+    background: #33333d;
+  }
+  
+  .div_root::-webkit-scrollbar-thumb {
+    background-color: #9797c4;
+  }

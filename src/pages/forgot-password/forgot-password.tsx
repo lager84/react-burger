@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   authForgotPasswordAction,
-  AUTH_CLEAR_ERRORS,
+  AUTH_CLEAR_ERRORS
 } from "../../services/actions/auth";
 import { URL_LOGIN, URL_RESET_PASSWORD } from "../../utils/routes";
 import { useFormCallback } from "../../utils/use-form-callback";
@@ -43,7 +43,7 @@ function ForgotPassword() {
 
   if (requestError) {
     alert(`[Восстановление пароля] ${requestError}`);
-    dispatch({ type: AUTH_CLEAR_ERRORS });
+    dispatch({ type: AUTH_CLEAR_ERRORS , message:""  });
   }
 
   return (

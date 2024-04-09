@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/redux";
 import { Link } from "react-router-dom";
 import {
   EmailInput,
@@ -20,6 +20,7 @@ type TState = TLoginUser & {
   wasSubmit?: boolean;
 };
 
+
 function Login() {
   const dispatch = useDispatch();
 
@@ -34,6 +35,9 @@ function Login() {
     {
       email: "",
       password: "",
+      name:"",
+      accessToken:"",
+      refreshToken:""
     },
     submitCallback
   );

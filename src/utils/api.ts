@@ -1,6 +1,6 @@
 import { BASE_URL } from "./domain";
 import { setCookie, getCookie } from "./cookie";
-import { TBurgerConstructor } from "./type";
+import { TBurgerConstructor, TOrdersList} from "./type";
 
 const API_LOGIN = "/auth/login";
 const API_LOGOUT = "/auth/logout";
@@ -9,6 +9,7 @@ const API_USER = "/auth/user";
 const API_REGISTER = "/auth/register";
 const API_FORGOT_PASSWORD = "/password-reset";
 const API_RESET_PASSWORD = "/password-reset/reset";
+export const WS_URL = "wss://norma.nomoreparties.space";
 
 const request = <T>(url: string, options?: RequestInit) => {
   return fetch(url, options).then(checkResponse<T>);
@@ -26,16 +27,26 @@ type TIngredientsResponse = TServerResponse<{
   data: TBurgerConstructor[];
 }>;
 
+type TOrderResponse = TServerResponse<{
+  order: {number:number};
+}>;
+
 export function getIngredients() {
   return request<TIngredientsResponse>(`${BASE_URL}/ingredients`);
 }
 
 export function postOrder(ingredients: Array<TBurgerConstructor>) {
-  return request<TIngredientsResponse>(`${BASE_URL}/orders`, {
+  return request<TOrderResponse>(`${BASE_URL}/orders`, {
     method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
+    headers: { "Content-Type": "application/json;charset=utf-8" ,
+    Authorization: "Bearer " + getCookie("accessToken"),
+     },
     body: JSON.stringify({ ingredients: ingredients.map((item) => item._id) }),
   });
+}
+
+export function orderGet(orderNum?: string) {
+  return request<TOrdersList>(`${BASE_URL}/orders/${orderNum}`);
 }
 
 export function refreshToken() {
@@ -55,17 +66,19 @@ type TRefrashToken = TServerResponse<{
   refreshToken: string;
 }>;
 
-function requestWithRefreshToken(url: string, options: any) {
-  return request<TRefrashToken>(url, options).catch((err) => {
+export const  requestWithRefreshToken = <T>(url: string, options: any) => {
+   return request<T>(url, options)
+  .catch((err) => {
     if (err.message === "jwt expired") {
-      return refreshToken().then((refreshData) => {
+      return refreshToken()
+      .then((refreshData) => {
         if (!refreshData.success) {
           return Promise.reject(refreshData);
         }
         localStorage.setItem("refreshToken", refreshData.refreshToken);
         setCookie("accessToken", refreshData.accessToken);
         options.headers.authorization = refreshData.accessToken;
-        return request(url, options);
+        return request<T>(url, options);
       });
     } else {
       return Promise.reject(err);
@@ -77,7 +90,8 @@ export type TRegisterUser = TServerResponse<{
   name: string;
   email: string;
   password: string;
-}>;
+
+}> & TRefrashToken;
 
 export function registerUser(user: TRegisterUser) {
   return request<TRegisterUser>(`${BASE_URL}${API_REGISTER}`, {
@@ -89,13 +103,24 @@ export function registerUser(user: TRegisterUser) {
   });
 }
 
-export type TLoginUser = TServerResponse<{
+export type TLoginUser = {
+  name: string
   email: string;
   password: string;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export type TLoginUserResponse = TServerResponse<{
+  accessToken: string;
+  refreshToken: string;
+  user: TLoginUser
 }>;
 
+
+
 export function loginUser(user: TLoginUser) {
-  return request<TLoginUser>(`${BASE_URL}${API_LOGIN}`, {
+  return request<TLoginUserResponse>(`${BASE_URL}${API_LOGIN}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -147,8 +172,10 @@ export function resetPassword(form: TResetPassword) {
   });
 }
 
+
+
 export function getUser() {
-  return requestWithRefreshToken(`${BASE_URL}${API_USER}`, {
+  return requestWithRefreshToken<TLoginUserResponse>(`${BASE_URL}${API_USER}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -164,7 +191,7 @@ export type TPatchUser = TServerResponse<{
 }>;
 
 export function patchUser(user: TPatchUser) {
-  return requestWithRefreshToken(`${BASE_URL}${API_USER}`, {
+  return requestWithRefreshToken<TLoginUser>(`${BASE_URL}${API_USER}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

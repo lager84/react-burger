@@ -1,15 +1,13 @@
 import { useMemo, useRef, FC, useState, useCallback, useEffect } from "react";
 import styles from "../burger-ingredients/burgerIngredients.module.css";
 import { getData, getDispIngedients } from "../../services/selectors";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/redux";
 import { BUN, SAUCE, MAIN, names } from "../../utils/ingrediebtsName";
 import BurgerIngredientsTab from "../burger-ingredients-tab/BurgerIngredientsTab";
 import {
   getBun,
   getConstructorIngredients,
-  getTabsInfo,
 } from "../../services/selectors";
-import { SET_TAB } from "../../services/actions/tabs-info";
 import { SET_DISP_INGREDIENT } from "../../services/actions/disp-ingredients";
 import Cart from "../cart/Cart";
 import Modal from "../modal/Modal";
@@ -51,7 +49,6 @@ const BurgerIngredients: FC = () => {
   const { data } = useSelector(getData);
   const bun = useSelector(getBun);
   const ingredients = useSelector(getConstructorIngredients);
-  const tabs = useSelector(getTabsInfo);
   const dispatch = useDispatch();
   const { listRef, itemsRef, onScroll, topId } = useTopId();
   const [currentTab, setCurrentTab] = useState("bun");
@@ -62,9 +59,9 @@ const BurgerIngredients: FC = () => {
 
   const tabsGroup = useMemo(() => {
     let fdate: Record<string, Array<TIngredients>> = {};
-    fdate[BUN] = data.filter((i: TIngredients) => i.type === BUN);
-    fdate[SAUCE] = data.filter((i: TIngredients) => i.type === SAUCE);
-    fdate[MAIN] = data.filter((i: TIngredients) => i.type === MAIN);
+    fdate[BUN] = data.data.filter((i: TIngredients) => i.type === BUN);
+    fdate[SAUCE] = data.data.filter((i: TIngredients) => i.type === SAUCE);
+    fdate[MAIN] = data.data.filter((i: TIngredients) => i.type === MAIN);
     return fdate;
   }, [data]);
 
@@ -101,11 +98,11 @@ const BurgerIngredients: FC = () => {
   }
 
   useEffect(() => {
-    const topCategory = data?.find(
+    const topCategory = data.data?.find(
       (ingredient: TIngredients) => ingredient._id === topId
     )?.type;
     if (topCategory) setCurrentTab(topCategory);
-  }, [topId]);
+  }, [data.data , topId]);
 
   return (
     <section className={styles.sectionsingredients}>

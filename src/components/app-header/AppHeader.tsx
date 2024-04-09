@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../hooks/redux";
 import {
   BurgerIcon,
   ListIcon,
@@ -7,7 +7,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../app-header/appheader.module.css";
-import { URL_PROFILE, URL_ROOT, URL_LENTA } from "../../utils/routes";
+import { URL_PROFILE, URL_ROOT, URL_FEED } from "../../utils/routes";
 import HeaderIcon from "../header-icon/HeaderIcon";
 import { Link } from "react-router-dom";
 import { getAuth } from "../../services/selectors";
@@ -26,7 +26,7 @@ const AppHeader:FC = () => {
               </HeaderIcon>
             </li>
             <li>
-              <HeaderIcon href={URL_LENTA} icon={ListIcon}>
+              <HeaderIcon href={URL_FEED} icon={ListIcon}>
                 Лента заказов
               </HeaderIcon>
             </li>
