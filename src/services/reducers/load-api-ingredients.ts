@@ -8,7 +8,7 @@ type TLoadIngredientsState = {
     data: {success:boolean , data:Array<TIngredients>};
 }
 
-const initialState:TLoadIngredientsState = {
+export const initialState:TLoadIngredientsState = {
     loadData: false,
     errorData: false,
     data: {success:false , data:[]}

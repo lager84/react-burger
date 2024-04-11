@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDM1MWM2OTdlZGUwMDAxZDA1Y2U1MCIsImlhdCI6MTcxMjgzNzc3NywiZXhwIjoxNzEyODM4OTc3fQ.grQtYWp9ZsmhDLsQinHlEzJJIpfxMCgcCzI9BD8mPtP",
+  "refreshToken": "05cb693dca355594d203408b048fef8b69d03d62c07dee4a88d7a63cc97171cb15d1f79aafe27fdu",
+  "user": {
+      "email": "pupkin@yandex.ru",
+      "name": "Пупкин"
+  }
+}

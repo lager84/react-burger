@@ -39,7 +39,7 @@ const Modal:FC<TProps> = ({ title, children, btnClose }) => {
 
     return ReactDOM.createPortal((
         <>
-            <div className={styles.modalOrder}>
+            <div data-test="modal" className={styles.modalOrder}>
                 <div className={styles.ingredient_header}>
                     <h2 className={styles.ingredient_title}>{title}</h2>
                     <div className={styles.order_closeButton}><CloseIcon type="primary" onClick={btnClose} /></div>

@@ -55,8 +55,8 @@ function BurgerConstructor() {
 
   return (
 
-    <div ref={dropBunUp} className={styles.divConstructor} >
-      <div className={styles.libun}>
+    <div data-test="constr_bun" ref={dropBunUp} className={styles.divConstructor} >
+      <div  className={styles.libun}>
         {bun &&
           <ConstructorElement
             type="top"
@@ -67,7 +67,7 @@ function BurgerConstructor() {
           />
         }
       </div>
-      <ul className={styles.ulIng} ref={dropIngredient}>
+      <ul data-test="ingrid" className={styles.ulIng} ref={dropIngredient}>
         {ingredients.length > 0 && ingredients.map((i:TBurgerConstructor, index:number) => {
           return (
             <BurgerConstructorItems key={i.uniqueId} item={i} index={index} onDelete={deleteIngredient} />
@@ -87,7 +87,7 @@ function BurgerConstructor() {
       </div>
       <div className={styles.divTotal}>
         <div className={styles.divTotalChild}>
-          <span className={styles.pTotal}>{sum}</span>
+          <span data-test="order-price" className={styles.pTotal}>{sum}</span>
           <CurrencyIcon type="primary" />
         </div>
         <Order />

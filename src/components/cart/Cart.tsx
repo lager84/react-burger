@@ -39,10 +39,13 @@ const Cart: FC<Tprops> = ({ ingredient, count, itemsRef }) => {
   itemsRef({ ref, id: ingredient._id });
 
   return (
-    <div ref={ref}>
-      <li className={styles.cart} ref={dragRef} onClick={getCartsData}>
+    <div 
+    data-test="burger-ingredient"
+    data-testid={ingredient._id}  
+    ref={ref}>
+      <li  className={styles.cart} ref={dragRef} onClick={getCartsData}>
         <Counter count={count} size="default" extraClass="m-1" />
-        <img src={ingredient.image} alt={ingredient.name}></img>
+        <img   src={ingredient.image} alt={ingredient.name}></img>
         <div className={styles.cartprice}>
           <p className={styles.cartcount}>{ingredient.price}</p>
           <CurrencyIcon type="primary" />

@@ -12,7 +12,7 @@ type TAddOrderState = {
     orderNumber: number | null;
 }
 
-const initialState:TAddOrderState  = {
+export const initialState:TAddOrderState  = {
     orderLoad: false,
     orderLoadErrors: false,
     orderNumber: null

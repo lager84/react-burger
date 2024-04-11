@@ -72,7 +72,7 @@ const  Order = () => {
 
 
     return (
-        <div>
+        <div data-test="order-info">
             <Button disabled={disabled} htmlType="button" type="primary" size="large" onClick={showOrder}>
                 Оформить заказ
             </Button>

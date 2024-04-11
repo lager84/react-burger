@@ -50,7 +50,7 @@ function Login() {
 
   return (
     <main className="page-container">
-      <form className="page-container-inner" onSubmit={onSubmit}>
+      <form data-test="login-form" className="page-container-inner" onSubmit={onSubmit}>
         <>
           <h1 className="text text_type_main-medium mb-6">Вход</h1>
           <EmailInput

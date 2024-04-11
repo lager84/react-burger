@@ -5,7 +5,7 @@ import { BUN } from '../../utils/ingrediebtsName';
 type TTabInfoState = {
     tab: string;
 }
-const initialState:TTabInfoState = {
+export const initialState:TTabInfoState = {
     tab: BUN
 }
 

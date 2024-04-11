@@ -15,7 +15,7 @@ export type TBurgerConstructorState = {
     sum: number;
 }
 
-const initialState:TBurgerConstructorState = {
+export const initialState:TBurgerConstructorState = {
     bun: null,
     ingredients: [],
     sum: 0

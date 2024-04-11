@@ -9,7 +9,7 @@ type TProps ={
 
 const ModalOverlay:FC<TProps> = ({ onClick }) => {
     return (
-        <div className={styles.overlay} onClick={onClick} />
+        <div data-test="modal-overlay" className={styles.overlay} onClick={onClick} />
     )
 }
 
