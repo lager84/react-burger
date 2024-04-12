@@ -15,8 +15,8 @@ import {
   ResetPassword,
   ForgotPassword,
   NotFound404,
-  FeedPage, 
-  OrderPage
+  FeedPage,
+  OrderPage,
 } from "../../pages";
 import {
   URL_ROOT,
@@ -28,15 +28,14 @@ import {
   URL_PROFILE,
   URL_PROFILE_ORDERS,
   URL_ANY,
-  URL_FEED
+  URL_FEED,
 } from "../../utils/routes";
 import { authGetUserAction } from "../../services/actions/auth";
 import ProtectedRoute from "../protected-route";
 import { getCookie } from "../../utils/cookie";
 import { loadApiIngredients } from "../../services/actions/load-api-ingredients";
-import Modal from '../modal/Modal';
-import OrderInfo from '../order-info/order-info';
-
+import Modal from "../modal/Modal";
+import OrderInfo from "../order-info/order-info";
 
 function App() {
   const accToken = getCookie("accessToken");
@@ -49,8 +48,7 @@ function App() {
 
   const closeModalDetail = () => {
     navigate(-1);
-  }
-
+  };
 
   useEffect(() => {
     dispatch({ type: SET_DISP_INGREDIENT, item: item });
@@ -65,7 +63,6 @@ function App() {
   useEffect(() => {
     dispatch(loadApiIngredients() as any);
   }, [dispatch]);
-
 
   return (
     <div className={styles.divheader}>
@@ -109,20 +106,26 @@ function App() {
           </Route>
           <Route path={URL_ANY} element={<NotFound404 />} />
         </Routes>
-        {stateLocation &&
-                    <Routes>
-                        <Route path={`${URL_FEED}/:id`} element={
-                            <Modal btnClose={closeModalDetail}>
-                                <OrderInfo />
-                            </Modal>
-                        } />
-                        <Route path={`${URL_PROFILE}/${URL_PROFILE_ORDERS}/:id`} element={
-                            <Modal btnClose={closeModalDetail}>
-                                <OrderInfo />
-                            </Modal>
-                        } />
-                    </Routes>
-        }
+        {stateLocation && (
+          <Routes>
+            <Route
+              path={`${URL_FEED}/:id`}
+              element={
+                <Modal btnClose={closeModalDetail}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+            <Route
+              path={`${URL_PROFILE}/${URL_PROFILE_ORDERS}/:id`}
+              element={
+                <Modal btnClose={closeModalDetail}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          </Routes>
+        )}
       </div>
     </div>
   );
