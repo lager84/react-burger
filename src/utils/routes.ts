@@ -1,4 +1,4 @@
-export const URL_ROOT = "/";
+export const URL_ROOT = "/react-burger";
 export const URL_INGREDIENTS = "/ingredients";
 export const URL_LENTA = "/lenta";
 export const URL_LOGIN ="/login";
