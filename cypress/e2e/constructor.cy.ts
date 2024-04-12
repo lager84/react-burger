@@ -136,7 +136,7 @@ describe('template spec', () => {
 
 
 
-    cy.location('pathname').should('eq', '/');
+    cy.location('pathname').should('eq', '/react-burger');
 
     cy.get('@orderButton')
       .should('be.enabled')
@@ -146,6 +146,8 @@ describe('template spec', () => {
       .should('exist')
       .find('[data-test="order-number"]')
       .should('exist');
+
+      cy.get('[data-test="modal-overlay"]').trigger('click', 'topLeft');
   });
 
 
